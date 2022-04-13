@@ -10,7 +10,7 @@
   text-decoration: none;
 }
 
-* body {
+body {
   font-family: "Roboto", sans-serif;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -30,44 +30,45 @@
   margin: 0;
 }
 
-* body .board-container {
+body .board-container {
   width: calc(min(80vw, 80vh));
   height: calc(min(80vw, 80vh));
-  border: 16px solid brown;
+  border: calc(0.08 * calc(min(80vw, 80vh))) solid brown;
+  background-color: brown;
   border-spacing: 0;
 }
 
-* body .board-container .row {
+body .board-container .row {
   width: 100%;
 }
 
-* body .board-container .row .col {
+body .board-container .row .col {
   background-color: blanchedalmond;
   width: 12.5%;
   height: 12.5%;
 }
 
-* body .board-container .row .col:nth-of-type(2n) {
+body .board-container .row .col:nth-of-type(2n) {
   background-color: chocolate;
   -webkit-transition: all 0.3s ease-in;
   transition: all 0.3s ease-in;
 }
 
-* body .board-container .row .col:hover {
+body .board-container .row .col:hover {
   background-color: darkviolet;
 }
 
-* body .board-container .row:nth-of-type(2n) .col {
+body .board-container .row:nth-of-type(2n) .col {
   background-color: chocolate;
 }
 
-* body .board-container .row:nth-of-type(2n) .col:nth-of-type(2n) {
+body .board-container .row:nth-of-type(2n) .col:nth-of-type(2n) {
   background-color: blanchedalmond;
   -webkit-transition: all 0.3s ease;
   transition: all 0.3s ease;
 }
 
-* body .board-container .row:nth-of-type(2n) .col:hover {
+body .board-container .row:nth-of-type(2n) .col:hover {
   background-color: darkviolet;
 }
 /*# sourceMappingURL=style.css.map */

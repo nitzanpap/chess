@@ -1,5 +1,13 @@
 @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap");
 
+// Color pellete:
+$board-bg-color: brown;
+$cell-first-color: chocolate;
+$cell-second-color: blanchedalmond;
+$cell-hover-color: darkviolet;
+
+// Sizes:
+$board-size: calc(min(80vw, 80vh));
 * {
     box-sizing: border-box;
     margin: 0;
@@ -7,46 +15,47 @@
     a {
         text-decoration: none;
     }
+}
 
-    body {
-        font-family: "Roboto", sans-serif;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        height: 100vh;
-        overflow: hidden;
-        margin: 0;
-        .board-container {
-            width: calc(min(80vw, 80vh));
-            height: calc(min(80vw, 80vh));
-            border: 16px solid brown;
-            border-spacing: 0;
-            .row {
-                width: 100%;
+body {
+    font-family: "Roboto", sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    overflow: hidden;
+    margin: 0;
+    .board-container {
+        width: $board-size;
+        height: $board-size;
+        border: calc(0.08 * #{$board-size}) solid $board-bg-color;
+        background-color: $board-bg-color;
+        border-spacing: 0;
+        .row {
+            width: 100%;
+            .col {
+                background-color: $cell-second-color;
+                width: 12.5%;
+                height: 12.5%;
+                &:nth-of-type(2n) {
+                    background-color: $cell-first-color;
+                    transition: all 0.3s ease-in;
+                }
+                &:hover {
+                    background-color: $cell-hover-color;
+                }
+            }
+            // Styling the even rows differntly from the odd rows
+            &:nth-of-type(2n) {
                 .col {
-                    background-color: blanchedalmond;
-                    width: 12.5%;
-                    height: 12.5%;
+                    background-color: $cell-first-color;
                     &:nth-of-type(2n) {
-                        background-color: chocolate;
-                        transition: all 0.3s ease-in;
+                        background-color: $cell-second-color;
+                        transition: all 0.3s ease;
                     }
                     &:hover {
-                        background-color: darkviolet;
-                    }
-                }
-                // Styling the even rows differntly from the odd rows
-                &:nth-of-type(2n) {
-                    .col {
-                        background-color: chocolate;
-                        &:nth-of-type(2n) {
-                            background-color: blanchedalmond;
-                            transition: all 0.3s ease;
-                        }
-                        &:hover {
-                            background-color: darkviolet;
-                        }
+                        background-color: $cell-hover-color;
                     }
                 }
             }
