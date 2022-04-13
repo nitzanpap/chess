@@ -33,7 +33,8 @@
 * body .board-container {
   width: calc(min(80vw, 80vh));
   height: calc(min(80vw, 80vh));
-  background-color: brown;
+  border: 16px solid brown;
+  border-spacing: 0;
 }
 
 * body .board-container .row {
@@ -48,10 +49,12 @@
 
 * body .board-container .row .col:nth-of-type(2n) {
   background-color: chocolate;
+  -webkit-transition: all 0.3s ease-in;
+  transition: all 0.3s ease-in;
 }
 
 * body .board-container .row .col:hover {
-  background-color: crimson;
+  background-color: darkviolet;
 }
 
 * body .board-container .row:nth-of-type(2n) .col {
@@ -60,9 +63,11 @@
 
 * body .board-container .row:nth-of-type(2n) .col:nth-of-type(2n) {
   background-color: blanchedalmond;
+  -webkit-transition: all 0.3s ease;
+  transition: all 0.3s ease;
 }
 
 * body .board-container .row:nth-of-type(2n) .col:hover {
-  background-color: crimson;
+  background-color: darkviolet;
 }
 /*# sourceMappingURL=style.css.map */

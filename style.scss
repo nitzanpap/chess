@@ -20,7 +20,8 @@
         .board-container {
             width: calc(min(80vw, 80vh));
             height: calc(min(80vw, 80vh));
-            background-color: brown;
+            border: 16px solid brown;
+            border-spacing: 0;
             .row {
                 width: 100%;
                 .col {
@@ -29,9 +30,10 @@
                     height: 12.5%;
                     &:nth-of-type(2n) {
                         background-color: chocolate;
+                        transition: all 0.3s ease-in;
                     }
                     &:hover {
-                        background-color: crimson;
+                        background-color: darkviolet;
                     }
                 }
                 // Styling the even rows differntly from the odd rows
@@ -40,9 +42,10 @@
                         background-color: chocolate;
                         &:nth-of-type(2n) {
                             background-color: blanchedalmond;
+                            transition: all 0.3s ease;
                         }
                         &:hover {
-                            background-color: crimson;
+                            background-color: darkviolet;
                         }
                     }
                 }
