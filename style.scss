@@ -1,0 +1,52 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap");
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    a {
+        text-decoration: none;
+    }
+
+    body {
+        font-family: "Roboto", sans-serif;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        overflow: hidden;
+        margin: 0;
+        .board-container {
+            width: calc(min(80vw, 80vh));
+            height: calc(min(80vw, 80vh));
+            background-color: brown;
+            .row {
+                width: 100%;
+                .col {
+                    background-color: blanchedalmond;
+                    width: 12.5%;
+                    height: 12.5%;
+                    &:nth-of-type(2n) {
+                        background-color: chocolate;
+                    }
+                    &:hover {
+                        background-color: crimson;
+                    }
+                }
+                // Styling the even rows differntly from the odd rows
+                &:nth-of-type(2n) {
+                    .col {
+                        background-color: chocolate;
+                        &:nth-of-type(2n) {
+                            background-color: blanchedalmond;
+                        }
+                        &:hover {
+                            background-color: crimson;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
