@@ -20,7 +20,7 @@ window.addEventListener("load", () => {
             // Create and draw table cells
             for (let j = 0; j < BOARD_COL_SIZE; j++) {
                 let col = document.createElement("td")
-                col.classList = "col col" + (i + 1)
+                col.classList = "col col" + (j + 1)
                 row.appendChild(col)
             }
         }
