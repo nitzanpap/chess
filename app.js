@@ -1,6 +1,7 @@
 window.addEventListener("load", () => {
-    createAndDrawBoard()
-
+    /**
+     * This function creates and draws the chess board
+     */
     function createAndDrawBoard() {
         // Create and draw board-container table
         const body = document.querySelector("body")
@@ -22,4 +23,6 @@ window.addEventListener("load", () => {
             }
         }
     }
+    // Main app
+    createAndDrawBoard()
 })
