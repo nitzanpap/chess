@@ -50,20 +50,39 @@ window.addEventListener("load", () => {
                     if (i === 1) {
                         const tile = row.querySelector(".col" + j)
                         const piece = document.createElement("img")
-                        if (j === 1 || j === 8) piece.src = "imgs/pieces/rook" + tileColor + ".png"
-                        else if (j === 2 || j === 7)
+                        piece.classList.add("chess-piece")
+                        // Add rook
+                        if (j === 1 || j === 8) {
+                            piece.src = "imgs/pieces/rook" + tileColor + ".png"
+                            piece.className += " rook"
+                        }
+                        // Add knight
+                        else if (j === 2 || j === 7) {
                             piece.src = "imgs/pieces/knight" + tileColor + ".png"
-                        else if (j === 3 || j === 6)
+                            piece.className += " knight"
+                        }
+                        // Add bishop
+                        else if (j === 3 || j === 6) {
                             piece.src = "imgs/pieces/bishop" + tileColor + ".png"
-                        else if (j === 4) piece.src = "imgs/pieces/queen" + tileColor + ".png"
-                        else if (j === 5) piece.src = "imgs/pieces/king" + tileColor + ".png"
+                            piece.className += " bishop"
+                        }
+                        // Add queen
+                        else if (j === 4) {
+                            piece.src = "imgs/pieces/queen" + tileColor + ".png"
+                            piece.className += " queen"
+                        }
+                        // Add king
+                        else if (j === 5) {
+                            piece.src = "imgs/pieces/king" + tileColor + ".png"
+                            piece.className += " king"
+                        }
                         tile.appendChild(piece)
                     }
                     // Pawns row
                     if (i === 2) {
                         const tile = row.querySelector(".col" + j)
-                        console.log(tile)
                         const piece = document.createElement("img")
+                        piece.className += "chess-piece pawn"
                         piece.src = "imgs/pieces/pawn" + tileColor + ".png"
                         tile.appendChild(piece)
                     }
