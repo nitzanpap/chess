@@ -34,7 +34,7 @@ body {
         border-spacing: 0;
         .row {
             width: 100%;
-            .col {
+            .tile {
                 background-color: $cell-second-color;
                 width: 12.5%;
                 height: 12.5%;
@@ -47,21 +47,33 @@ body {
                 }
                 &:nth-of-type(2n) {
                     background-color: $cell-first-color;
+                    &.selectedTile {
+                        background-color: $cell-hover-color;
+                    }
                 }
                 &:hover {
                     border: 0.4rem solid $cell-hover-color;
                 }
+                &.selectedTile {
+                    background-color: $cell-hover-color;
+                }
             }
             // Styling the even rows differntly from the odd rows
             &:nth-of-type(2n) {
-                .col {
+                .tile {
                     background-color: $cell-first-color;
                     transition: all 0.1s ease;
                     &:nth-of-type(2n) {
                         background-color: $cell-second-color;
+                        &.selectedTile {
+                            background-color: $cell-hover-color;
+                        }
                     }
                     &:hover {
                         border: 0.4rem solid $cell-hover-color;
+                    }
+                    &.selectedTile {
+                        background-color: $cell-hover-color;
                     }
                 }
             }

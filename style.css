@@ -42,7 +42,7 @@ body .board-container .row {
   width: 100%;
 }
 
-body .board-container .row .col {
+body .board-container .row .tile {
   background-color: blanchedalmond;
   width: 12.5%;
   height: 12.5%;
@@ -50,7 +50,7 @@ body .board-container .row .col {
   transition: all 0.1s ease-in;
 }
 
-body .board-container .row .col img {
+body .board-container .row .tile img {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -63,25 +63,41 @@ body .board-container .row .col img {
   width: 100%;
 }
 
-body .board-container .row .col:nth-of-type(2n) {
+body .board-container .row .tile:nth-of-type(2n) {
   background-color: chocolate;
 }
 
-body .board-container .row .col:hover {
+body .board-container .row .tile:nth-of-type(2n).selectedTile {
+  background-color: darkviolet;
+}
+
+body .board-container .row .tile:hover {
   border: 0.4rem solid darkviolet;
 }
 
-body .board-container .row:nth-of-type(2n) .col {
+body .board-container .row .tile.selectedTile {
+  background-color: darkviolet;
+}
+
+body .board-container .row:nth-of-type(2n) .tile {
   background-color: chocolate;
   -webkit-transition: all 0.1s ease;
   transition: all 0.1s ease;
 }
 
-body .board-container .row:nth-of-type(2n) .col:nth-of-type(2n) {
+body .board-container .row:nth-of-type(2n) .tile:nth-of-type(2n) {
   background-color: blanchedalmond;
 }
 
-body .board-container .row:nth-of-type(2n) .col:hover {
+body .board-container .row:nth-of-type(2n) .tile:nth-of-type(2n).selectedTile {
+  background-color: darkviolet;
+}
+
+body .board-container .row:nth-of-type(2n) .tile:hover {
   border: 0.4rem solid darkviolet;
+}
+
+body .board-container .row:nth-of-type(2n) .tile.selectedTile {
+  background-color: darkviolet;
 }
 /*# sourceMappingURL=style.css.map */

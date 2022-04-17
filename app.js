@@ -1,6 +1,9 @@
 window.addEventListener("load", () => {
     const BOARD_SIZE = 8
     const ASCII_NUM_OF_A = 65
+
+    let tileSelected
+
     /**
      * This function creates and draws the chess board
      */
@@ -23,9 +26,9 @@ window.addEventListener("load", () => {
             boardContainer.appendChild(row)
             // Create and draw table cells
             for (let j = 1; j <= BOARD_SIZE; j++) {
-                const col = document.createElement("td")
-                col.classList = "col col" + j
-                row.appendChild(col)
+                const tile = document.createElement("td")
+                tile.classList = "tile tile" + j
+                row.appendChild(tile)
             }
         }
     }
@@ -46,10 +49,10 @@ window.addEventListener("load", () => {
                     row = document.querySelector("#row" + (BOARD_SIZE + 1 - i))
                 }
                 for (let j = 1; j <= BOARD_SIZE; j++) {
+                    const tile = row.querySelector(".tile" + j)
+                    const piece = document.createElement("img")
                     // Special pieces row
                     if (i === 1) {
-                        const tile = row.querySelector(".col" + j)
-                        const piece = document.createElement("img")
                         piece.classList.add("chess-piece")
                         // Add rook
                         if (j === 1 || j === 8) {
@@ -80,8 +83,6 @@ window.addEventListener("load", () => {
                     }
                     // Pawns row
                     if (i === 2) {
-                        const tile = row.querySelector(".col" + j)
-                        const piece = document.createElement("img")
                         piece.className += "chess-piece pawn"
                         piece.src = "imgs/pieces/pawn" + tileColor + ".png"
                         tile.appendChild(piece)
@@ -91,6 +92,24 @@ window.addEventListener("load", () => {
         }
     }
 
+    function handleTileClick(tile) {
+        tileSelected = document.querySelector(".selectedTile")
+        if (tileSelected != null) {
+            tileSelected.classList.remove("selectedTile")
+        }
+        tileSelected = tile
+        tile.classList.toggle("selectedTile")
+        console.log(tile)
+    }
+
     // Main app
     drawGame()
+
+    const tiles = Array.from(document.querySelectorAll(".tile"))
+
+    tiles.forEach((tile) => {
+        tile.addEventListener("click", () => {
+            handleTileClick(tile)
+        })
+    })
 })
