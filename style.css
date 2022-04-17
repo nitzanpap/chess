@@ -33,7 +33,8 @@ body {
 body .board-container {
   width: calc(min(80vw, 80vh));
   height: calc(min(80vw, 80vh));
-  border: calc(0.08 * calc(min(80vw, 80vh))) solid brown;
+  border: calc(0.08 * calc(min(80vw, 80vh))) outset brown;
+  border-radius: 2%;
   background-color: brown;
   border-spacing: 0;
 }

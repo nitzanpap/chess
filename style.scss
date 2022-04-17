@@ -29,7 +29,8 @@ body {
     .board-container {
         width: $board-size;
         height: $board-size;
-        border: calc(0.08 * #{$board-size}) solid $board-bg-color;
+        border: calc(0.08 * #{$board-size}) outset $board-bg-color;
+        border-radius: 2%;
         background-color: $board-bg-color;
         border-spacing: 0;
         .row {
