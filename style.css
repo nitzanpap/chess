@@ -68,16 +68,16 @@ body .board-container .row .tile:nth-of-type(2n) {
 }
 
 body .board-container .row .tile:nth-of-type(2n).selectedTile {
-  background-color: #826af7;
+  background-color: #9c40f1;
 }
 
 body .board-container .row .tile:hover {
-  -webkit-box-shadow: 0px 0px 0px 10px #826af7 inset;
-          box-shadow: 0px 0px 0px 10px #826af7 inset;
+  -webkit-box-shadow: 0px 0px 0px 10px #9c40f1 inset;
+          box-shadow: 0px 0px 0px 10px #9c40f1 inset;
 }
 
 body .board-container .row .tile.selectedTile {
-  background-color: #826af7;
+  background-color: #9c40f1;
 }
 
 body .board-container .row:nth-of-type(2n) .tile {
@@ -91,15 +91,15 @@ body .board-container .row:nth-of-type(2n) .tile:nth-of-type(2n) {
 }
 
 body .board-container .row:nth-of-type(2n) .tile:nth-of-type(2n).selectedTile {
-  background-color: #826af7;
+  background-color: #9c40f1;
 }
 
 body .board-container .row:nth-of-type(2n) .tile:hover {
-  -webkit-box-shadow: 0px 0px 0px 10px #826af7 inset;
-          box-shadow: 0px 0px 0px 10px #826af7 inset;
+  -webkit-box-shadow: 0px 0px 0px 10px #9c40f1 inset;
+          box-shadow: 0px 0px 0px 10px #9c40f1 inset;
 }
 
 body .board-container .row:nth-of-type(2n) .tile.selectedTile {
-  background-color: #826af7;
+  background-color: #9c40f1;
 }
 /*# sourceMappingURL=style.css.map */
