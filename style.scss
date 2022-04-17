@@ -49,7 +49,7 @@ body {
                     background-color: $cell-first-color;
                 }
                 &:hover {
-                    background-color: $cell-hover-color;
+                    border: 0.4rem solid $cell-hover-color;
                 }
             }
             // Styling the even rows differntly from the odd rows
@@ -61,7 +61,7 @@ body {
                         background-color: $cell-second-color;
                     }
                     &:hover {
-                        background-color: $cell-hover-color;
+                        border: 0.4rem solid $cell-hover-color;
                     }
                 }
             }

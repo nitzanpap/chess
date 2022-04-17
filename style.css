@@ -68,7 +68,7 @@ body .board-container .row .col:nth-of-type(2n) {
 }
 
 body .board-container .row .col:hover {
-  background-color: darkviolet;
+  border: 0.4rem solid darkviolet;
 }
 
 body .board-container .row:nth-of-type(2n) .col {
@@ -82,6 +82,6 @@ body .board-container .row:nth-of-type(2n) .col:nth-of-type(2n) {
 }
 
 body .board-container .row:nth-of-type(2n) .col:hover {
-  background-color: darkviolet;
+  border: 0.4rem solid darkviolet;
 }
 /*# sourceMappingURL=style.css.map */
