@@ -51,46 +51,31 @@ window.addEventListener("load", () => {
                 }
                 for (let j = 1; j <= BOARD_SIZE; j++) {
                     const tile = row.querySelector(".tile" + j)
-                    const piece = document.createElement("img")
                     // Special pieces row
                     if (i === 1) {
-                        piece.classList.add("chess-piece")
                         // Add rook
-                        if (j === 1 || j === 8) {
-                            piece.src = "imgs/pieces/rook" + tileColor + ".png"
-                            piece.className += " rook"
-                        }
+                        if (j === 1 || j === 8) drawPiece(tile, "rook", tileColor)
                         // Add knight
-                        else if (j === 2 || j === 7) {
-                            piece.src = "imgs/pieces/knight" + tileColor + ".png"
-                            piece.className += " knight"
-                        }
+                        else if (j === 2 || j === 7) drawPiece(tile, "knight", tileColor)
                         // Add bishop
-                        else if (j === 3 || j === 6) {
-                            piece.src = "imgs/pieces/bishop" + tileColor + ".png"
-                            piece.className += " bishop"
-                        }
+                        else if (j === 3 || j === 6) drawPiece(tile, "bishop", tileColor)
                         // Add queen
-                        else if (j === 4) {
-                            piece.src = "imgs/pieces/queen" + tileColor + ".png"
-                            piece.className += " queen"
-                        }
+                        else if (j === 4) drawPiece(tile, "queen", tileColor)
                         // Add king
-                        else if (j === 5) {
-                            piece.src = "imgs/pieces/king" + tileColor + ".png"
-                            piece.className += " king"
-                        }
-                        tile.appendChild(piece)
+                        else if (j === 5) drawPiece(tile, "king", tileColor)
                     }
                     // Pawns row
-                    if (i === 2) {
-                        piece.className += "chess-piece pawn"
-                        piece.src = "imgs/pieces/pawn" + tileColor + ".png"
-                        tile.appendChild(piece)
-                    }
+                    if (i === 2) drawPiece(tile, "pawn", tileColor)
                 }
             }
         }
+    }
+
+    function drawPiece(tile, type, tileColor) {
+        const piece = document.createElement("img")
+        piece.className += "chess-piece " + type
+        piece.src = "imgs/pieces/" + type + tileColor + ".png"
+        tile.appendChild(piece)
     }
 
     function selectTileClick(tile) {
