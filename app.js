@@ -28,6 +28,7 @@ window.addEventListener("load", () => {
             for (let j = 1; j <= BOARD_SIZE; j++) {
                 const tile = document.createElement("td")
                 tile.classList = "tile tile" + j
+                tile.id = "tileNo" + (j + (i - 1) * BOARD_SIZE)
                 row.appendChild(tile)
             }
         }
