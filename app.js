@@ -99,7 +99,7 @@ window.addEventListener("load", () => {
             tileSelected.classList.remove("selectedTile")
         }
         tileSelected = tile
-        tile.classList.toggle("selectedTile")
+        tile.classList.add("selectedTile")
         console.log(tile)
     }
 
