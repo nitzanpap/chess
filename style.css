@@ -48,6 +48,19 @@ body .board-container .row .col {
   height: 12.5%;
 }
 
+body .board-container .row .col img {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  width: 100%;
+}
+
 body .board-container .row .col:nth-of-type(2n) {
   background-color: chocolate;
   -webkit-transition: all 0.3s ease-in;
