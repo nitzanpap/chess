@@ -93,7 +93,7 @@ window.addEventListener("load", () => {
         }
     }
 
-    function handleTileClick(tile) {
+    function selectTileClick(tile) {
         tileSelected = document.querySelector(".selectedTile")
         if (tileSelected != null) {
             tileSelected.classList.remove("selectedTile")
@@ -110,7 +110,7 @@ window.addEventListener("load", () => {
 
     tiles.forEach((tile) => {
         tile.addEventListener("click", () => {
-            handleTileClick(tile)
+            selectTileClick(tile)
         })
     })
 })
