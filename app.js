@@ -1,6 +1,5 @@
 window.addEventListener("load", () => {
-    const BOARD_COL_SIZE = 8
-    const BOARD_ROW_SIZE = 8
+    const BOARD_SIZE = 8
     /**
      * This function creates and draws the chess board
      */
@@ -12,13 +11,13 @@ window.addEventListener("load", () => {
         body.appendChild(boardContainer)
 
         // Create and draw table rows
-        for (let i = 0; i < BOARD_ROW_SIZE; i++) {
+        for (let i = 0; i < BOARD_SIZE; i++) {
             let row = document.createElement("tr")
             row.className = "row"
             row.id = "row" + (i + 1)
             boardContainer.appendChild(row)
             // Create and draw table cells
-            for (let j = 0; j < BOARD_COL_SIZE; j++) {
+            for (let j = 0; j < BOARD_SIZE; j++) {
                 let col = document.createElement("td")
                 col.classList = "col col" + (j + 1)
                 row.appendChild(col)
