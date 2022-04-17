@@ -38,6 +38,7 @@ body {
                 background-color: $cell-second-color;
                 width: 12.5%;
                 height: 12.5%;
+                transition: all 0.1s ease-in;
                 img {
                     display: flex;
                     justify-content: center;
@@ -46,7 +47,6 @@ body {
                 }
                 &:nth-of-type(2n) {
                     background-color: $cell-first-color;
-                    transition: all 0.3s ease-in;
                 }
                 &:hover {
                     background-color: $cell-hover-color;
@@ -56,9 +56,9 @@ body {
             &:nth-of-type(2n) {
                 .col {
                     background-color: $cell-first-color;
+                    transition: all 0.1s ease;
                     &:nth-of-type(2n) {
                         background-color: $cell-second-color;
-                        transition: all 0.3s ease;
                     }
                     &:hover {
                         background-color: $cell-hover-color;
