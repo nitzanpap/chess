@@ -51,6 +51,7 @@ body .board-container .row .tile {
 }
 
 body .board-container .row .tile img {
+  cursor: pointer;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
