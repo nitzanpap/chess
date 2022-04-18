@@ -28,7 +28,7 @@ window.addEventListener("load", () => {
             // Create and draw table cells
             for (let j = 0; j <= BOARD_SIZE - 1; j++) {
                 const tile = document.createElement("td")
-                tile.classList = "tile tile" + j
+                tile.classList = "tile col" + j
                 // tile.id = "tileNo" + (j + (i - 1) * BOARD_SIZE)
                 tile.id = "tileNo" + (j + i * BOARD_SIZE)
                 row.appendChild(tile)
@@ -52,7 +52,7 @@ window.addEventListener("load", () => {
                     row = document.querySelector("#row" + (BOARD_SIZE - 1 - i))
                 }
                 for (let j = 0; j <= BOARD_SIZE - 1; j++) {
-                    const tile = row.querySelector(".tile" + j)
+                    const tile = row.querySelector(".col" + j)
                     console.log(row)
                     console.log(tile)
                     // Special pieces row
