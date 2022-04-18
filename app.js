@@ -4,6 +4,7 @@ const ASCII_NUM_OF_A = 65
 let tileSelected
 let colorTurn = "W"
 let board = [[], [], [], [], [], [], [], []]
+let madeAMove = false
 
 // Handles a click on a tile on the board
 function handleTileClick(tile) {
@@ -21,14 +22,13 @@ function handleTileClick(tile) {
             let tileSelectedID = tileSelected.id.slice(1)
             let rowFrom = Math.floor(tileSelectedID / 8)
             let colFrom = tileSelectedID % 8
-            let pieceColor = board[rowTo][colTo].slice(-1)
-            const pieceType = board[rowFrom][colFrom]
             if (isValidMove()) {
                 // Update board array
                 movePiece(rowFrom, colFrom, rowTo, colTo)
                 // Update board screen
                 drawPiece(tile, tileSelected)
                 selectTileClick(tile)
+                switchTurn()
             }
         }
     }
@@ -38,6 +38,8 @@ function handleTileClick(tile) {
 
 function switchTurn() {
     colorTurn = colorTurn === "W" ? "B" : "W"
+    tileSelected = undefined
+    madeAMove = false
 }
 
 function drawPiece(tile, tileSelected) {
@@ -45,12 +47,14 @@ function drawPiece(tile, tileSelected) {
 }
 
 function isValidMove() {
+    if (madeAMove) return false
     return true
 }
 
 function movePiece(rowFrom, colFrom, rowTo, colTo) {
     board[rowTo][colTo] = board[rowFrom][colFrom]
     board[rowFrom][colFrom] = "e"
+    madeAMove = true
 }
 
 function selectTileClick(tile) {
