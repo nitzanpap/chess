@@ -31,28 +31,6 @@ body {
 }
 
 body .board-container {
-  width: calc(min(80vw, 80vh));
-  height: calc(min(80vw, 80vh));
-  border: calc(0.08 * calc(min(80vw, 80vh))) outset brown;
-  border-radius: 2%;
-  background-color: brown;
-  border-spacing: 0;
-}
-
-body .board-container .row {
-  width: 100%;
-}
-
-body .board-container .row .tile {
-  background-color: blanchedalmond;
-  width: 12.5%;
-  height: 12.5%;
-  -webkit-transition: all 0.1s ease-in-out;
-  transition: all 0.1s ease-in-out;
-}
-
-body .board-container .row .tile img {
-  cursor: pointer;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -62,6 +40,57 @@ body .board-container .row .tile img {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+  width: 100%;
+  height: 100%;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  width: calc(min(80vw, 80vh));
+  height: calc(min(80vw, 80vh));
+  border: calc(0.08 * calc(min(80vw, 80vh))) outset brown;
+  border-radius: 2%;
+  background-color: brown;
+  border-spacing: 0;
+}
+
+body .board-container .row {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  width: 100%;
+  height: 12.5%;
+}
+
+body .board-container .row .tile {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  background-color: blanchedalmond;
+  width: 12.5%;
+  height: 100%;
+  -webkit-transition: all 0.2s ease-in-out;
+  transition: all 0.2s ease-in-out;
+}
+
+body .board-container .row .tile img {
+  cursor: pointer;
+  width: 90%;
+  -webkit-transition: all 0.1s ease-in-out;
+  transition: all 0.1s ease-in-out;
+}
+
+body .board-container .row .tile img:hover {
   width: 100%;
 }
 
@@ -73,19 +102,14 @@ body .board-container .row .tile:nth-of-type(2n).selectedTile {
   background-color: #9c40f1;
 }
 
-body .board-container .row .tile:hover {
-  -webkit-box-shadow: 0px 0px 0px 10px #9c40f1 inset;
-          box-shadow: 0px 0px 0px 10px #9c40f1 inset;
-}
-
 body .board-container .row .tile.selectedTile {
   background-color: #9c40f1;
 }
 
 body .board-container .row:nth-of-type(2n) .tile {
   background-color: chocolate;
-  -webkit-transition: all 0.1s ease-in-out;
-  transition: all 0.1s ease-in-out;
+  -webkit-transition: all 0.2s ease-in-out;
+  transition: all 0.2s ease-in-out;
 }
 
 body .board-container .row:nth-of-type(2n) .tile:nth-of-type(2n) {
@@ -96,9 +120,15 @@ body .board-container .row:nth-of-type(2n) .tile:nth-of-type(2n).selectedTile {
   background-color: #9c40f1;
 }
 
-body .board-container .row:nth-of-type(2n) .tile:hover {
-  -webkit-box-shadow: 0px 0px 0px 10px #9c40f1 inset;
-          box-shadow: 0px 0px 0px 10px #9c40f1 inset;
+body .board-container .row:nth-of-type(2n) .tile img {
+  cursor: pointer;
+  width: 90%;
+  -webkit-transition: all 0.1s ease-in-out;
+  transition: all 0.1s ease-in-out;
+}
+
+body .board-container .row:nth-of-type(2n) .tile img:hover {
+  width: 100%;
 }
 
 body .board-container .row:nth-of-type(2n) .tile.selectedTile {
