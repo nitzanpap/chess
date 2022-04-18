@@ -8,10 +8,9 @@ let board = [[], [], [], [], [], [], [], []]
 // Handles a click on a tile on the board
 function handleTileClick(tile) {
     let tileID = tile.id.slice(1)
-    console.log(tileID)
-    let row = Math.floor(tileID / 8)
-    let col = tileID % 8
-    let pieceColor = board[row][col].slice(-1)
+    let rowTo = Math.floor(tileID / 8)
+    let colTo = tileID % 8
+    let pieceColor = board[rowTo][colTo].slice(-1)
 
     // Click on a current player's piece
     if (colorTurn === pieceColor) selectTileClick(tile)
@@ -19,12 +18,41 @@ function handleTileClick(tile) {
     else if (pieceColor === "e") {
         // A piece was selected previously
         if (tileSelected !== undefined) {
-            if (isValidMove()) movePiece(tileSelected, tile)
+            let tileSelectedID = tileSelected.id.slice(1)
+            let rowFrom = Math.floor(tileSelectedID / 8)
+            let colFrom = tileSelectedID % 8
+            let pieceColor = board[rowTo][colTo].slice(-1)
+            const pieceType = board[rowFrom][colFrom]
+            if (isValidMove()) {
+                // Update board array
+                movePiece(rowFrom, colFrom, rowTo, colTo)
+                // Update board screen
+                drawPiece(tile, tileSelected)
+                selectTileClick(tile)
+            }
         }
     }
     // Click on an opposite player's piece
     // else {}
 }
+
+function switchTurn() {
+    colorTurn = colorTurn === "W" ? "B" : "W"
+}
+
+function drawPiece(tile, tileSelected) {
+    tile.appendChild(tileSelected.children[0])
+}
+
+function isValidMove() {
+    return true
+}
+
+function movePiece(rowFrom, colFrom, rowTo, colTo) {
+    board[rowTo][colTo] = board[rowFrom][colFrom]
+    board[rowFrom][colFrom] = "e"
+}
+
 function selectTileClick(tile) {
     tileSelected = document.querySelector(".selectedTile")
     if (tileSelected != null) {
@@ -115,7 +143,7 @@ function createPieces() {
                 }
                 // Pawns row
                 if (i === 1) pieceType = "pawn"
-                drawPiece(tile, pieceType, tileColor)
+                drawPieceInit(tile, pieceType, tileColor)
                 if (k === 1) addPieceToBoardArray(i, j, pieceType, tileColor)
                 else addPieceToBoardArray(BOARD_SIZE - 1 - i, j, pieceType, tileColor)
             }
@@ -127,7 +155,7 @@ function addPieceToBoardArray(row, col, pieceType, color) {
     board[row][col] = pieceType + color
 }
 
-function drawPiece(tile, type, tileColor) {
+function drawPieceInit(tile, type, tileColor) {
     const piece = document.createElement("img")
     piece.className += "chess-piece " + type
     piece.src = "imgs/pieces/" + type + tileColor + ".png"
