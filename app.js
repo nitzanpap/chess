@@ -11,6 +11,35 @@ function drawGame() {
     createBoard()
     createPieces()
 }
+
+function tileType(tile) {
+    console.log(tile.id.substring(1))
+}
+
+function selectTileClick(tile) {
+    tileSelected = document.querySelector(".selectedTile")
+    if (tileSelected != null) {
+        tileSelected.classList.remove("selectedTile")
+    }
+    tileSelected = tile
+    tile.classList.add("selectedTile")
+    console.log(tile)
+    tileType(tile)
+}
+
+// Main app
+drawGame()
+
+const tiles = Array.from(document.querySelectorAll(".tile"))
+
+tiles.forEach((tile) => {
+    tile.addEventListener("click", () => {
+        selectTileClick(tile)
+    })
+})
+
+// -------------------------------------------------------------------------
+
 function createBoard() {
     // Create and draw board-container table
     const body = document.querySelector("body")
@@ -29,7 +58,7 @@ function createBoard() {
             const tile = document.createElement("td")
             tile.classList = "tile col" + j
             // tile.id = "tileNo" + (j + (i - 1) * BOARD_SIZE)
-            tile.id = "tileNo" + (j + i * BOARD_SIZE)
+            tile.id = "t" + (j + i * BOARD_SIZE)
             row.appendChild(tile)
             // Add piece to board array
             board[i][j] = "e"
@@ -89,24 +118,3 @@ function drawPiece(tile, type, tileColor) {
     piece.src = "imgs/pieces/" + type + tileColor + ".png"
     tile.appendChild(piece)
 }
-
-function selectTileClick(tile) {
-    tileSelected = document.querySelector(".selectedTile")
-    if (tileSelected != null) {
-        tileSelected.classList.remove("selectedTile")
-    }
-    tileSelected = tile
-    tile.classList.add("selectedTile")
-    console.log(tile)
-}
-
-// Main app
-drawGame()
-
-const tiles = Array.from(document.querySelectorAll(".tile"))
-
-tiles.forEach((tile) => {
-    tile.addEventListener("click", () => {
-        selectTileClick(tile)
-    })
-})
