@@ -4,14 +4,6 @@ const ASCII_NUM_OF_A = 65
 let tileSelected
 let board = [[], [], [], [], [], [], [], []]
 
-/**
- * This function creates and draws the chess board
- */
-function drawGame() {
-    createBoard()
-    createPieces()
-}
-
 function tileType(tile) {
     console.log(tile.id.substring(1))
 }
@@ -28,7 +20,7 @@ function selectTileClick(tile) {
 }
 
 // Main app
-drawGame()
+initGame()
 
 const tiles = Array.from(document.querySelectorAll(".tile"))
 
@@ -40,6 +32,14 @@ tiles.forEach((tile) => {
 
 // -------------------------------------------------------------------------
 
+function initGame() {
+    createBoard()
+    createPieces()
+}
+
+/**
+ * This function creates and draws the chess board
+ */
 function createBoard() {
     // Create and draw board-container table
     const body = document.querySelector("body")
