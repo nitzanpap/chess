@@ -2,12 +2,29 @@ const BOARD_SIZE = 8
 const ASCII_NUM_OF_A = 65
 
 let tileSelected
+let colorTurn = "W"
 let board = [[], [], [], [], [], [], [], []]
 
-function tileType(tile) {
-    console.log(tile.id.substring(1))
-}
+// Handles a click on a tile on the board
+function handleTileClick(tile) {
+    let tileID = tile.id.slice(1)
+    console.log(tileID)
+    let row = Math.floor(tileID / 8)
+    let col = tileID % 8
+    let pieceColor = board[row][col].slice(-1)
 
+    // Click on a current player's piece
+    if (colorTurn === pieceColor) selectTileClick(tile)
+    // Empty cell clicked
+    else if (pieceColor === "e") {
+        // A piece was selected previously
+        if (tileSelected !== undefined) {
+            if (isValidMove()) movePiece(tileSelected, tile)
+        }
+    }
+    // Click on an opposite player's piece
+    // else {}
+}
 function selectTileClick(tile) {
     tileSelected = document.querySelector(".selectedTile")
     if (tileSelected != null) {
@@ -15,8 +32,6 @@ function selectTileClick(tile) {
     }
     tileSelected = tile
     tile.classList.add("selectedTile")
-    console.log(tile)
-    tileType(tile)
 }
 
 // Main app
@@ -26,7 +41,7 @@ const tiles = Array.from(document.querySelectorAll(".tile"))
 
 tiles.forEach((tile) => {
     tile.addEventListener("click", () => {
-        selectTileClick(tile)
+        handleTileClick(tile)
     })
 })
 
