@@ -53,27 +53,31 @@ window.addEventListener("load", () => {
                 }
                 for (let j = 0; j <= BOARD_SIZE - 1; j++) {
                     const tile = row.querySelector(".col" + j)
+                    let pieceType
                     console.log(row)
                     console.log(tile)
                     // Special pieces row
                     if (i === 0) {
                         // Add rook
-                        if (j === 0 || j === 7) drawPiece(tile, "rook", tileColor)
+                        if (j === 0 || j === 7) pieceType = "rook"
                         // Add knight
-                        else if (j === 1 || j === 6) drawPiece(tile, "knight", tileColor)
+                        else if (j === 1 || j === 6) pieceType = "knight"
                         // Add bishop
-                        else if (j === 2 || j === 5) drawPiece(tile, "bishop", tileColor)
+                        else if (j === 2 || j === 5) pieceType = "bishop"
                         // Add queen
-                        else if (j === 3) drawPiece(tile, "queen", tileColor)
+                        else if (j === 3) pieceType = "queen"
                         // Add king
-                        else if (j === 4) drawPiece(tile, "king", tileColor)
+                        else if (j === 4) pieceType = "king"
                     }
                     // Pawns row
-                    if (i === 1) drawPiece(tile, "pawn", tileColor)
+                    if (i === 1) pieceType = "pawn"
+                    drawPiece(tile, pieceType, tileColor)
                 }
             }
         }
     }
+
+    function addPieceToBoard() {}
 
     function drawPiece(tile, type, tileColor) {
         const piece = document.createElement("img")
