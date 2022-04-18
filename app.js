@@ -3,6 +3,7 @@ window.addEventListener("load", () => {
     const ASCII_NUM_OF_A = 65
 
     let tileSelected
+    let board = [[], [], [], [], [], [], [], []]
 
     /**
      * This function creates and draws the chess board
@@ -19,16 +20,17 @@ window.addEventListener("load", () => {
         body.appendChild(boardContainer)
 
         // Create and draw table rows
-        for (let i = BOARD_SIZE; i >= 1; i--) {
+        for (let i = BOARD_SIZE - 1; i >= 0; i--) {
             const row = document.createElement("tr")
             row.className = "row"
             row.id = "row" + i + ""
             boardContainer.appendChild(row)
             // Create and draw table cells
-            for (let j = 1; j <= BOARD_SIZE; j++) {
+            for (let j = 0; j <= BOARD_SIZE - 1; j++) {
                 const tile = document.createElement("td")
                 tile.classList = "tile tile" + j
-                tile.id = "tileNo" + (j + (i - 1) * BOARD_SIZE)
+                // tile.id = "tileNo" + (j + (i - 1) * BOARD_SIZE)
+                tile.id = "tileNo" + (j + i * BOARD_SIZE)
                 row.appendChild(tile)
             }
         }
@@ -39,7 +41,7 @@ window.addEventListener("load", () => {
      */
     function createPieces() {
         // Draw two special rows
-        for (let i = 1; i <= 2; i++) {
+        for (let i = 0; i <= 1; i++) {
             let row = document.querySelector("#row" + i)
             let tileColor = "W"
             // Runs twice - Once for the white pieces, and once for the black pieces
@@ -47,25 +49,27 @@ window.addEventListener("load", () => {
                 // k alternates between creating the white and black pieces
                 if (k === 2) {
                     tileColor = "B"
-                    row = document.querySelector("#row" + (BOARD_SIZE + 1 - i))
+                    row = document.querySelector("#row" + (BOARD_SIZE - 1 - i))
                 }
-                for (let j = 1; j <= BOARD_SIZE; j++) {
+                for (let j = 0; j <= BOARD_SIZE - 1; j++) {
                     const tile = row.querySelector(".tile" + j)
+                    console.log(row)
+                    console.log(tile)
                     // Special pieces row
-                    if (i === 1) {
+                    if (i === 0) {
                         // Add rook
-                        if (j === 1 || j === 8) drawPiece(tile, "rook", tileColor)
+                        if (j === 0 || j === 7) drawPiece(tile, "rook", tileColor)
                         // Add knight
-                        else if (j === 2 || j === 7) drawPiece(tile, "knight", tileColor)
+                        else if (j === 1 || j === 6) drawPiece(tile, "knight", tileColor)
                         // Add bishop
-                        else if (j === 3 || j === 6) drawPiece(tile, "bishop", tileColor)
+                        else if (j === 2 || j === 5) drawPiece(tile, "bishop", tileColor)
                         // Add queen
-                        else if (j === 4) drawPiece(tile, "queen", tileColor)
+                        else if (j === 3) drawPiece(tile, "queen", tileColor)
                         // Add king
-                        else if (j === 5) drawPiece(tile, "king", tileColor)
+                        else if (j === 4) drawPiece(tile, "king", tileColor)
                     }
                     // Pawns row
-                    if (i === 2) drawPiece(tile, "pawn", tileColor)
+                    if (i === 1) drawPiece(tile, "pawn", tileColor)
                 }
             }
         }
