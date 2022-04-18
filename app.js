@@ -14,7 +14,10 @@ function handleTileClick(tile) {
     let pieceColor = board[rowTo][colTo].slice(-1)
 
     // Click on a current player's piece
-    if (colorTurn === pieceColor) selectTileClick(tile)
+    if (colorTurn === pieceColor) {
+        selectTileClick(tile)
+        // showPossibleMoves(tile)
+    }
     // Empty cell clicked
     else if (pieceColor === "e") {
         // A piece was selected previously
