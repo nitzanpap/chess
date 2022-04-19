@@ -120,7 +120,7 @@ function createBoard() {
             tile.id = "t" + (j + i * BOARD_SIZE)
             row.appendChild(tile)
             // Add piece to board array
-            board[i][j] = "e"
+            board[i][j] = new Piece(i, j, "e", undefined)
         }
     }
     console.log(board)
@@ -168,7 +168,7 @@ function createPieces() {
 }
 
 function addPieceToBoardArray(row, col, pieceType, color) {
-    board[row][col] = pieceType + color
+    board[row][col] = new Piece(row, col, pieceType, color)
 }
 
 function drawPieceInit(tile, type, tileColor) {
