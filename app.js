@@ -7,28 +7,28 @@ let board = [[], [], [], [], [], [], [], []]
 let madeAMove = false
 
 class Piece {
-    constructor(row, col, type, playerColor) {
+    constructor(row, col, type, color) {
         this.row = row
         this.col = col
         this.type = type
-        this.playerColor = playerColor
+        this.color = color
     }
 }
 
 // Handles a click on a tile on the board
 function handleTileClick(tile) {
     let tileID = tile.id.slice(1)
-    let rowTo = Math.floor(tileID / 8)
-    let colTo = tileID % 8
-    let pieceColor = board[rowTo][colTo].slice(-1)
+    let piece = board[Math.floor(tileID / 8)][tileID % 8]
+    // console.log("Piece selected:", piece)
+    // console.log("Last tile selected:", tileSelected)
 
     // Click on a current player's piece
-    if (colorTurn === pieceColor) {
+    if (piece.color === colorTurn) {
         selectTileClick(tile)
         // showPossibleMoves(tile)
     }
     // Empty cell clicked
-    else if (pieceColor === "e") {
+    else if (piece.color === "e") {
         // A piece was selected previously
         if (tileSelected !== undefined) {
             let tileSelectedID = tileSelected.id.slice(1)
@@ -36,7 +36,7 @@ function handleTileClick(tile) {
             let colFrom = tileSelectedID % 8
             if (isValidMove()) {
                 // Update board array
-                movePiece(rowFrom, colFrom, rowTo, colTo)
+                movePiece(rowFrom, colFrom, piece.row, piece.col)
                 // Update board screen
                 drawPiece(tile, tileSelected)
                 selectTileClick(tile)
@@ -65,12 +65,15 @@ function isValidMove() {
 
 function movePiece(rowFrom, colFrom, rowTo, colTo) {
     board[rowTo][colTo] = board[rowFrom][colFrom]
-    board[rowFrom][colFrom] = "e"
+    board[rowFrom][colFrom] = new Piece(rowFrom, colFrom, "e", "e")
     madeAMove = true
 }
 
+// TODO: Refactor code so that the tile selected is pulled from the board array and not from the DOM.
 function selectTileClick(tile) {
-    tileSelected = document.querySelector(".selectedTile")
+    // let tileID = tile.id.slice(1)
+    // let piece = board[Math.floor(tileID / 8)][tileID % 8]
+    // tileSelected = document.querySelector(".selectedTile")
     if (tileSelected != null) {
         tileSelected.classList.remove("selectedTile")
     }
@@ -116,11 +119,10 @@ function createBoard() {
         for (let j = 0; j <= BOARD_SIZE - 1; j++) {
             const tile = document.createElement("td")
             tile.classList = "tile col" + j
-            // tile.id = "tileNo" + (j + (i - 1) * BOARD_SIZE)
             tile.id = "t" + (j + i * BOARD_SIZE)
             row.appendChild(tile)
             // Add piece to board array
-            board[i][j] = new Piece(i, j, "e", undefined)
+            board[i][j] = new Piece(i, j, "e", "e")
         }
     }
     console.log(board)
