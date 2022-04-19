@@ -6,6 +6,15 @@ let colorTurn = "W"
 let board = [[], [], [], [], [], [], [], []]
 let madeAMove = false
 
+class Piece {
+    constructor(row, col, type, playerColor) {
+        this.row = row
+        this.col = col
+        this.type = type
+        this.playerColor = playerColor
+    }
+}
+
 // Handles a click on a tile on the board
 function handleTileClick(tile) {
     let tileID = tile.id.slice(1)
