@@ -1,3 +1,4 @@
+/*
 const BOARD_SIZE = 8
 const ASCII_NUM_OF_A = 65
 
@@ -102,9 +103,7 @@ function initGame() {
     createPieces()
 }
 
-/**
- * This function creates and draws the chess board
- */
+ // This function creates and draws the chess board
 function createBoard() {
     // Create and draw board-container table
     const body = document.querySelector("body")
@@ -131,9 +130,7 @@ function createBoard() {
     console.log(board)
 }
 
-/**
- * This function creates and draws the chess pieces
- */
+// This function creates and draws the chess pieces
 function createPieces() {
     // Draw two special rows
     for (let i = 0; i <= 1; i++) {
@@ -182,3 +179,4 @@ function drawPieceInit(tile, type, tileColor) {
     piece.src = "imgs/pieces/" + type + tileColor + ".png"
     tile.appendChild(piece)
 }
+*/
