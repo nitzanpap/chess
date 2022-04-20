@@ -1,11 +1,6 @@
 const BOARD_SIZE = 8
 const ASCII_NUM_OF_A = 65
 
-let tileSelected
-let colorTurn = "W"
-let board = [[], [], [], [], [], [], [], []]
-let madeAMove = false
-
 class Piece {
     constructor(row, col, type, color) {
         this.row = row
@@ -15,17 +10,25 @@ class Piece {
     }
 }
 
+let tileSelected
+let colorTurn = "W"
+let board = [[], [], [], [], [], [], [], []]
+let madeAMove = false
+
+// TODO: Write all possible moves
+function showPossibleMoves(piece) {
+    console.log(piece)
+}
+
 // Handles a click on a tile on the board
 function handleTileClick(tile) {
     let tileID = tile.id.slice(1)
     let piece = board[Math.floor(tileID / 8)][tileID % 8]
-    // console.log("Piece selected:", piece)
-    // console.log("Last tile selected:", tileSelected)
 
     // Click on a current player's piece
     if (piece.color === colorTurn) {
         selectTileClick(tile)
-        // showPossibleMoves(tile)
+        showPossibleMoves(tile)
     }
     // Empty cell clicked
     else if (piece.color === "e") {
