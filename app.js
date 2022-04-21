@@ -40,13 +40,13 @@ function createBoard() {
             td.id = "td" + (j + i * BOARD_SIZE)
             tr.appendChild(td)
             // Add piece to board array
-            addPieceToBoardArray(i, j, "e", "e")
+            addNewPieceToBoardArray(i, j, "e", "e")
         }
     }
     console.log(board)
 }
 
-function addPieceToBoardArray(i, j, type, color) {
+function addNewPieceToBoardArray(i, j, type, color) {
     board[i][j] = new Piece(i, j, type, color)
 }
 
