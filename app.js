@@ -1,4 +1,3 @@
-/*
 const BOARD_SIZE = 8
 const ASCII_NUM_OF_A = 65
 
@@ -11,9 +10,49 @@ class Piece {
     }
 }
 
-let tileSelected
 let colorTurn = "W"
 let board = [[], [], [], [], [], [], [], []]
+
+runMainGameLoop()
+
+function runMainGameLoop() {
+    createBoard()
+}
+
+// This function creates and draws the chess board
+function createBoard() {
+    // Create and draw board-container table
+    const body = document.querySelector("body")
+    const boardContainer = document.createElement("table")
+    boardContainer.className = "board-container"
+    body.appendChild(boardContainer)
+
+    // Create and draw table rows
+    for (let i = BOARD_SIZE - 1; i >= 0; i--) {
+        const tr = document.createElement("tr")
+        tr.className = "tr"
+        tr.id = "tr" + i + ""
+        boardContainer.appendChild(tr)
+        // Create and draw table cells
+        for (let j = 0; j <= BOARD_SIZE - 1; j++) {
+            const td = document.createElement("td")
+            td.classList = "tdCol" + j
+            td.id = "td" + (j + i * BOARD_SIZE)
+            tr.appendChild(td)
+            // Add piece to board array
+            addPieceToBoardArray(i, j, "e", "e")
+        }
+    }
+    console.log(board)
+}
+
+function addPieceToBoardArray(i, j, type, color) {
+    board[i][j] = new Piece(i, j, type, color)
+}
+
+/*
+
+let tileSelected
 let madeAMove = false
 
 // TODO: Write all possible moves
@@ -103,32 +142,7 @@ function initGame() {
     createPieces()
 }
 
- // This function creates and draws the chess board
-function createBoard() {
-    // Create and draw board-container table
-    const body = document.querySelector("body")
-    const boardContainer = document.createElement("table")
-    boardContainer.className = "board-container"
-    body.appendChild(boardContainer)
 
-    // Create and draw table rows
-    for (let i = BOARD_SIZE - 1; i >= 0; i--) {
-        const row = document.createElement("tr")
-        row.className = "row"
-        row.id = "row" + i + ""
-        boardContainer.appendChild(row)
-        // Create and draw table cells
-        for (let j = 0; j <= BOARD_SIZE - 1; j++) {
-            const tile = document.createElement("td")
-            tile.classList = "tile col" + j
-            tile.id = "t" + (j + i * BOARD_SIZE)
-            row.appendChild(tile)
-            // Add piece to board array
-            board[i][j] = new Piece(i, j, "e", "e")
-        }
-    }
-    console.log(board)
-}
 
 // This function creates and draws the chess pieces
 function createPieces() {
@@ -169,9 +183,6 @@ function createPieces() {
     }
 }
 
-function addPieceToBoardArray(row, col, pieceType, color) {
-    board[row][col] = new Piece(row, col, pieceType, color)
-}
 
 function drawPieceInit(tile, type, tileColor) {
     const piece = document.createElement("img")

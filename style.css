@@ -52,7 +52,7 @@ body .board-container {
   border-spacing: 0;
 }
 
-body .board-container .row {
+body .board-container tr {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -66,7 +66,7 @@ body .board-container .row {
   height: 12.5%;
 }
 
-body .board-container .row .tile {
+body .board-container tr td {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -83,55 +83,55 @@ body .board-container .row .tile {
   transition: all 0.2s ease-in-out;
 }
 
-body .board-container .row .tile img {
+body .board-container tr td img {
   cursor: pointer;
   width: 90%;
   -webkit-transition: all 0.1s ease-in-out;
   transition: all 0.1s ease-in-out;
 }
 
-body .board-container .row .tile img:hover {
+body .board-container tr td img:hover {
   width: 100%;
 }
 
-body .board-container .row .tile:nth-of-type(2n) {
+body .board-container tr td:nth-of-type(2n) {
   background-color: chocolate;
 }
 
-body .board-container .row .tile:nth-of-type(2n).selectedTile {
+body .board-container tr td:nth-of-type(2n).selectedTile {
   background-color: #9c40f1;
 }
 
-body .board-container .row .tile.selectedTile {
+body .board-container tr td.selectedTile {
   background-color: #9c40f1;
 }
 
-body .board-container .row:nth-of-type(2n) .tile {
+body .board-container tr:nth-of-type(2n) td {
   background-color: chocolate;
   -webkit-transition: all 0.2s ease-in-out;
   transition: all 0.2s ease-in-out;
 }
 
-body .board-container .row:nth-of-type(2n) .tile:nth-of-type(2n) {
+body .board-container tr:nth-of-type(2n) td:nth-of-type(2n) {
   background-color: blanchedalmond;
 }
 
-body .board-container .row:nth-of-type(2n) .tile:nth-of-type(2n).selectedTile {
+body .board-container tr:nth-of-type(2n) td:nth-of-type(2n).selectedTile {
   background-color: #9c40f1;
 }
 
-body .board-container .row:nth-of-type(2n) .tile img {
+body .board-container tr:nth-of-type(2n) td img {
   cursor: pointer;
   width: 90%;
   -webkit-transition: all 0.1s ease-in-out;
   transition: all 0.1s ease-in-out;
 }
 
-body .board-container .row:nth-of-type(2n) .tile img:hover {
+body .board-container tr:nth-of-type(2n) td img:hover {
   width: 100%;
 }
 
-body .board-container .row:nth-of-type(2n) .tile.selectedTile {
+body .board-container tr:nth-of-type(2n) td.selectedTile {
   background-color: #9c40f1;
 }
 /*# sourceMappingURL=style.css.map */
