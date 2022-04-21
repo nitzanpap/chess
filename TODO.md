@@ -6,6 +6,10 @@
 
 3. [x] Create a board array that is comprised of Piece objects.
 
-4. [ ] Create a function that adds a piece to the board array and draws it on the board.
+4. [x] Create a function that adds a piece to the board array and draws it on the board.
 
-5. [ ] Add correct pieces to the board array.
+5. [x] Add correct pieces to the board array.
+
+6. [ ] Create a function manages the game turns.
+
+7. [ ] Create a function that handles user clicks on tiles.
