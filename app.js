@@ -172,3 +172,5 @@ function switchTurn() {
     tileSelected = undefined
     madeAMove = false
 }
+// Code to check if the selected tile's piece is the same as piece in the pieces array:
+// board[i][j] === board[Math.floor(tileSelected.id.slice(2)/8)][tileSelected.id.slice(2) % 8]
