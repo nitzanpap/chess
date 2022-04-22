@@ -10,6 +10,8 @@
 
 5. [x] Add correct pieces to the board array.
 
-6. [ ] Create a function manages the game turns.
+6. [x] Create a function that manages the game turns.
 
-7. [ ] Create a function that handles user clicks on tiles.
+7. [x] Create a function that handles user clicks on tiles.
+
+8. [ ] Add API documentation to all functions.
