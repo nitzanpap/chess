@@ -12,6 +12,8 @@ class Piece {
 
 let colorTurn = "W"
 let board = [[], [], [], [], [], [], [], []]
+let tileSelected = undefined
+let madeAMove = false
 
 runMainGameLoop()
 
@@ -100,55 +102,21 @@ function drawPieceInit(tile, type, tileColor) {
     tile.appendChild(piece)
 }
 
-/*
+function selectTileClick(tile) {
+    if (tileSelected != undefined) {
+        removeSelectedTile()
+        tileSelected = undefined
+    }
+    tileSelected = tile
+    tile.classList.add("selectedTile")
+}
 
-let tileSelected
-let madeAMove = false
+function removeSelectedTile() {
+    tileSelected.classList.remove("selectedTile")
+}
 
-// TODO: Write all possible moves
 function showPossibleMoves(piece) {
-    console.log(piece)
-}
-
-// Handles a click on a tile on the board
-function handleTileClick(tile) {
-    let tileID = tile.id.slice(1)
-    let piece = board[Math.floor(tileID / 8)][tileID % 8]
-
-    // Click on a current player's piece
-    if (piece.color === colorTurn) {
-        selectTileClick(tile)
-        showPossibleMoves(tile)
-    }
-    // Empty cell clicked
-    else if (piece.color === "e") {
-        // A piece was selected previously
-        if (tileSelected !== undefined) {
-            let tileSelectedID = tileSelected.id.slice(1)
-            let rowFrom = Math.floor(tileSelectedID / 8)
-            let colFrom = tileSelectedID % 8
-            if (isValidMove()) {
-                // Update board array
-                movePiece(rowFrom, colFrom, piece.row, piece.col)
-                // Update board screen
-                drawPiece(tile, tileSelected)
-                selectTileClick(tile)
-                switchTurn()
-            }
-        }
-    }
-    // Click on an opposite player's piece
-    // else {}
-}
-
-function switchTurn() {
-    colorTurn = colorTurn === "W" ? "B" : "W"
-    tileSelected = undefined
-    madeAMove = false
-}
-
-function drawPiece(tile, tileSelected) {
-    tile.appendChild(tileSelected.children[0])
+    return
 }
 
 function isValidMove() {
@@ -162,15 +130,64 @@ function movePiece(rowFrom, colFrom, rowTo, colTo) {
     madeAMove = true
 }
 
-// TODO: Refactor code so that the tile selected is pulled from the board array and not from the DOM.
-function selectTileClick(tile) {
-    // let tileID = tile.id.slice(1)
-    // let piece = board[Math.floor(tileID / 8)][tileID % 8]
-    // tileSelected = document.querySelector(".selectedTile")
-    if (tileSelected != null) {
-        tileSelected.classList.remove("selectedTile")
-    }
-    tileSelected = tile
-    tile.classList.add("selectedTile")
+function drawPiece(tile) {
+    tile.appendChild(tileSelected.children[0])
 }
+
+function switchTurn() {
+    removeSelectedTile()
+    colorTurn = colorTurn === "W" ? "B" : "W"
+    tileSelected = undefined
+    madeAMove = false
+}
+
+// Handles a click on a tile on the board
+function handleTileClick(tile) {
+    const tdRow = tile.classList[0].slice(5)
+    const tdCol = tile.classList[1].slice(5)
+    let piece = board[tdRow][tdCol]
+
+    // Click on a current player's piece
+    if (piece.color === colorTurn) {
+        selectTileClick(tile)
+        showPossibleMoves(piece)
+    }
+    // Empty cell clicked
+    else if (piece.color === "e") {
+        // A piece was selected previously
+        if (tileSelected !== undefined) {
+            const rowFrom = tileSelected.classList[0].slice(5)
+            const colFrom = tileSelected.classList[1].slice(5)
+            if (isValidMove()) {
+                // Update board array
+                movePiece(rowFrom, colFrom, piece.row, piece.col)
+                // Update board screen
+                drawPiece(tile)
+                selectTileClick(tile)
+                switchTurn()
+            }
+        }
+    }
+    // Click on an opposite player's piece
+    // else {}
+}
+
+/*
+// TODO: Write all possible moves
+function showPossibleMoves(piece) {
+    console.log(piece)
+}
+
+function switchTurn() {
+    colorTurn = colorTurn === "W" ? "B" : "W"
+    tileSelected = undefined
+    madeAMove = false
+}
+
+function drawPiece(tile, tileSelected) {
+    tile.appendChild(tileSelected.children[0])
+}
+
+
+
 */
