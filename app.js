@@ -10,7 +10,7 @@ class Piece {
     }
 }
 
-let colorTurn = "W"
+let currentColorTurn = "W"
 let board = [[], [], [], [], [], [], [], []]
 let tileSelected = undefined
 let madeAMove = false
@@ -103,11 +103,41 @@ function drawPieceInit(tile, type, tileColor) {
     tile.appendChild(piece)
 }
 
+// Handles a click on a tile on the board
+function handleTileClick(tile) {
+    const tdRow = tile.classList[0].slice(5)
+    const tdCol = tile.classList[1].slice(5)
+    let piece = board[tdRow][tdCol]
+
+    // Click on a current player's piece
+    if (piece.color === currentColorTurn) {
+        selectTileClick(tile)
+        showPossibleMoves(piece)
+    }
+    // Empty cell clicked and a piece was selected previously
+    else if (piece.color === "e" && tileSelected !== undefined) {
+        const rowFrom = tileSelected.classList[0].slice(5)
+        const colFrom = tileSelected.classList[1].slice(5)
+        if (isValidMove()) {
+            // Update board array
+            movePiece(rowFrom, colFrom, piece.row, piece.col)
+            // Update board screen
+            drawPiece(tile)
+            selectTileClick(tile)
+
+            switchTurn()
+        }
+    }
+    // Click on an opposite player's piece
+    // else {}
+}
 function selectTileClick(tile) {
+    // Remove any previous selected tiles and rest tileSelected
     if (tileSelected != undefined) {
         removeSelectedTile()
         tileSelected = undefined
     }
+    // Select the given tile and update tileSelected accordingly
     tileSelected = tile
     tile.classList.add("selectedTile")
 }
@@ -115,11 +145,12 @@ function selectTileClick(tile) {
 function removeSelectedTile() {
     tileSelected.classList.remove("selectedTile")
 }
-
+// TODO: Write this function.
 function showPossibleMoves(piece) {
-    return
+    console.log(piece)
 }
 
+// TODO: Refactor this function to include all, or at least most, of the move validations.
 function isValidMove() {
     if (madeAMove) return false
     return true
@@ -137,58 +168,7 @@ function drawPiece(tile) {
 
 function switchTurn() {
     removeSelectedTile()
-    colorTurn = colorTurn === "W" ? "B" : "W"
+    currentColorTurn = currentColorTurn === "W" ? "B" : "W"
     tileSelected = undefined
     madeAMove = false
 }
-
-// Handles a click on a tile on the board
-function handleTileClick(tile) {
-    const tdRow = tile.classList[0].slice(5)
-    const tdCol = tile.classList[1].slice(5)
-    let piece = board[tdRow][tdCol]
-
-    // Click on a current player's piece
-    if (piece.color === colorTurn) {
-        selectTileClick(tile)
-        showPossibleMoves(piece)
-    }
-    // Empty cell clicked
-    else if (piece.color === "e") {
-        // A piece was selected previously
-        if (tileSelected !== undefined) {
-            const rowFrom = tileSelected.classList[0].slice(5)
-            const colFrom = tileSelected.classList[1].slice(5)
-            if (isValidMove()) {
-                // Update board array
-                movePiece(rowFrom, colFrom, piece.row, piece.col)
-                // Update board screen
-                drawPiece(tile)
-                selectTileClick(tile)
-                switchTurn()
-            }
-        }
-    }
-    // Click on an opposite player's piece
-    // else {}
-}
-
-/*
-// TODO: Write all possible moves
-function showPossibleMoves(piece) {
-    console.log(piece)
-}
-
-function switchTurn() {
-    colorTurn = colorTurn === "W" ? "B" : "W"
-    tileSelected = undefined
-    madeAMove = false
-}
-
-function drawPiece(tile, tileSelected) {
-    tile.appendChild(tileSelected.children[0])
-}
-
-
-
-*/
