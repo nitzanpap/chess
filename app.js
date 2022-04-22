@@ -126,7 +126,7 @@ function isValidMove() {
 
 function movePiece(rowFrom, colFrom, rowTo, colTo) {
     board[rowTo][colTo] = board[rowFrom][colFrom]
-    board[rowFrom][colFrom] = new Piece(rowFrom, colFrom, "e", "e")
+    board[rowFrom][colFrom] = new Piece(Number(rowFrom), Number(colFrom), "e", "e")
     madeAMove = true
 }
 
