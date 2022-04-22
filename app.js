@@ -86,10 +86,11 @@ function createPieces() {
                 }
                 // Pawns row
                 if (i === 1) pieceType = "pawn"
-                drawPieceInit(tdCol, pieceType, tileColor)
                 // Add pieces to board array
                 if (k === 1) addNewPieceToBoardArray(i, j, pieceType, tileColor)
                 else addNewPieceToBoardArray(BOARD_SIZE - 1 - i, j, pieceType, tileColor)
+                // Draw pieces on the screen
+                drawPieceInit(tdCol, pieceType, tileColor)
             }
         }
     }
