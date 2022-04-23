@@ -1,6 +1,15 @@
 const BOARD_SIZE = 8
 const ASCII_NUM_OF_A = 65
 
+const WHITE_PLAYER = "white"
+const BLACK_PLAYER = "black"
+
+const PAWN = "pawn"
+const ROOK = "rook"
+const KNIGHT = "knight"
+const BISHOP = "bishop"
+const KING = "king"
+const QUEEN = "queen"
 class Piece {
     constructor(row, col, type, color) {
         this.row = row
@@ -74,18 +83,18 @@ function createPieces() {
                 // Special pieces row
                 if (i === 0) {
                     // Add rook
-                    if (j === 0 || j === 7) pieceType = "rook"
+                    if (j === 0 || j === 7) pieceType = ROOK
                     // Add knight
-                    else if (j === 1 || j === 6) pieceType = "knight"
+                    else if (j === 1 || j === 6) pieceType = KNIGHT
                     // Add bishop
-                    else if (j === 2 || j === 5) pieceType = "bishop"
+                    else if (j === 2 || j === 5) pieceType = BISHOP
                     // Add queen
-                    else if (j === 3) pieceType = "queen"
+                    else if (j === 3) pieceType = QUEEN
                     // Add king
-                    else if (j === 4) pieceType = "king"
+                    else if (j === 4) pieceType = KING
                 }
                 // Pawns row
-                if (i === 1) pieceType = "pawn"
+                if (i === 1) pieceType = PAWN
                 // Add pieces to board array
                 if (k === 1) addNewPieceToBoardArray(i, j, pieceType, tileColor)
                 else addNewPieceToBoardArray(BOARD_SIZE - 1 - i, j, pieceType, tileColor)
