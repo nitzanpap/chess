@@ -37,13 +37,13 @@ class Piece {
         } else if (this.type === ROOK) {
             relativeMoves = this.getRookRelativeMoves()
         } else if (this.type === KNIGHT) {
-            // TODO: Get moves
+            relativeMoves = this.getKnightRelativeMoves()
         } else if (this.type === BISHOP) {
-            // TODO: Get moves
+            relativeMoves = this.getBishopRelativeMoves()
         } else if (this.type === KING) {
-            // TODO: Get moves
+            relativeMoves = this.getKingRelativeMoves()
         } else if (this.type === QUEEN) {
-            // TODO: Get moves
+            relativeMoves = this.getQueenRelativeMoves()
         } else {
             console.log("Unknown type", type)
         }
@@ -56,7 +56,6 @@ class Piece {
             const absoluteCol = this.col + relativeMove[1]
             absoluteMoves.push([absoluteRow, absoluteCol])
         }
-        // console.log('absoluteMoves', absoluteMoves);
 
         // Get filtered absolute moves
         let filteredMoves = []
@@ -72,7 +71,7 @@ class Piece {
     }
 
     getPawnRelativeMoves() {
-        // TODO: Give different answer to black player
+        // TODO: Return different moves for the first step.
         return this.color === WHITE_PLAYER ? [[1, 0]] : [[-1, 0]]
     }
 
@@ -83,6 +82,57 @@ class Piece {
             result.push([-i, 0])
             result.push([0, i])
             result.push([0, -i])
+        }
+        return result
+    }
+
+    getKnightRelativeMoves() {
+        let result = []
+        result.push([-1, -2])
+        result.push([-2, -1])
+        result.push([-1, 2])
+        result.push([-2, 1])
+        result.push([1, 2])
+        result.push([2, 1])
+        result.push([1, -2])
+        result.push([2, -1])
+        return result
+    }
+
+    getBishopRelativeMoves() {
+        let result = []
+        for (let i = 1; i < BOARD_SIZE; i++) {
+            result.push([i, i])
+            result.push([-i, -i])
+            result.push([i, -i])
+            result.push([-i, i])
+        }
+        return result
+    }
+
+    getKingRelativeMoves() {
+        let result = []
+        for (let i = -1; i <= 1; i++) {
+            for (let j = -1; j <= 1; j++) {
+                if (i != 0 || j != 0) result.push([i, j])
+            }
+        }
+        return result
+    }
+
+    getQueenRelativeMoves() {
+        let result = []
+        for (let i = 1; i < BOARD_SIZE; i++) {
+            // Moves of a rook
+            result.push([i, 0])
+            result.push([-i, 0])
+            result.push([0, i])
+            result.push([0, -i])
+            // Moves of a bishop
+            result.push([i, i])
+            result.push([-i, -i])
+            result.push([i, -i])
+            result.push([-i, i])
         }
         return result
     }
@@ -218,7 +268,6 @@ function selectTileClick(tile) {
 function removeSelectedTile() {
     tileSelected.classList.remove("selected-tile")
 }
-// TODO: Write this function.
 function showPossibleMoves(piece) {
     // Clear all previous possible moves
     removePossibleMoves()
