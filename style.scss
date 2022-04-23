@@ -5,7 +5,7 @@ $board-bg-color: brown;
 $cell-first-color: chocolate;
 $cell-second-color: blanchedalmond;
 $cell-hover-color: rgb(156, 64, 241);
-$possible-move-color: rgba(0, 106, 255, 0.5);
+$possible-move-color: mediumslateblue;
 
 // Sizes:
 $board-size: calc(min(80vw, 80vh));
@@ -69,16 +69,16 @@ body {
                         background-color: $cell-hover-color;
                     }
                     &.possible-move {
-                        -webkit-box-shadow: inset 0px 0px 5px 16px $possible-move-color;
-                        box-shadow: inset 0px 0px 5px 16px $possible-move-color;
+                        box-shadow: 0px 10px 10px -10px #000000,
+                            inset 0px 0px 50px 0px $possible-move-color;
                     }
                 }
                 &.selected-tile {
                     background-color: $cell-hover-color;
                 }
                 &.possible-move {
-                    -webkit-box-shadow: inset 0px 0px 5px 16px $possible-move-color;
-                    box-shadow: inset 0px 0px 5px 16px $possible-move-color;
+                    box-shadow: 0px 10px 10px -10px #000000,
+                        inset 0px 0px 50px 0px $possible-move-color;
                 }
             }
             // Styling the even rows differntly from the odd rows
@@ -92,8 +92,8 @@ body {
                             background-color: $cell-hover-color;
                         }
                         &.possible-move {
-                            -webkit-box-shadow: inset 0px 0px 5px 16px $possible-move-color;
-                            box-shadow: inset 0px 0px 5px 16px $possible-move-color;
+                            box-shadow: 0px 10px 10px -10px #000000,
+                                inset 0px 0px 50px 0px $possible-move-color;
                         }
                     }
                     img {
@@ -108,8 +108,8 @@ body {
                         background-color: $cell-hover-color;
                     }
                     &.possible-move {
-                        -webkit-box-shadow: inset 0px 0px 5px 16px $possible-move-color;
-                        box-shadow: inset 0px 0px 5px 16px $possible-move-color;
+                        box-shadow: 0px 10px 10px -10px #000000,
+                            inset 0px 0px 50px 0px $possible-move-color;
                     }
                 }
             }
