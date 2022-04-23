@@ -233,6 +233,14 @@ function createPieces() {
     }
 }
 
+function getPieceFromTile(tile) {
+    return board[Math.floor(tile.id.slice(2) / 8)][tile.id.slice(2) % 8]
+}
+
+function getTileFromPiece(piece) {
+    return board[piece.row][piece.col]
+}
+
 function drawPieceInit(tile, type, tileColor) {
     const piece = document.createElement("img")
     piece.className += "chess-piece " + type
@@ -242,31 +250,36 @@ function drawPieceInit(tile, type, tileColor) {
 
 // Handles a click on a tile on the board
 function handleTileClick(tile) {
-    const tdRow = tile.classList[0].slice(5)
-    const tdCol = tile.classList[1].slice(5)
-    let piece = board[tdRow][tdCol]
+    let piece = getPieceFromTile(tile)
 
     // Click on a current player's piece
     if (piece.color === currentColorTurn) {
         selectTileClick(tile)
         showPossibleMoves(piece)
     }
-    // Empty cell clicked and a piece was selected previously
-    else if (piece.color === "e" && tileSelected !== undefined) {
+    // A piece was selected previously
+    else if (tileSelected !== undefined) {
+        let previousPiece = getPieceFromTile(tileSelected)
         const rowFrom = tileSelected.classList[0].slice(5)
         const colFrom = tileSelected.classList[1].slice(5)
-        if (isValidMove()) {
+        if (isValidMove(tileSelected, tile)) {
+            // Empty tile clicked
+            if (piece.color === "e") {
+            }
+            // Opposite player's tile clicked
+            else {
+                console.log("Clicked on an opponent's piece!")
+                erasePieceFromTile(tile)
+            }
             // Update board array
             movePiece(rowFrom, colFrom, piece.row, piece.col)
             // Update board screen
-            drawPiece(tile)
+            drawPieceOnTile(tile)
             selectTileClick(tile)
 
             switchTurn()
         }
     }
-    // Click on an opposite player's piece
-    // else {}
 }
 function selectTileClick(tile) {
     // Remove any previous selected tiles and rest tileSelected
@@ -287,8 +300,8 @@ function showPossibleMoves(piece) {
     removePossibleMoves()
     let possibleMoves = piece.getPossibleMoves()
     for (let possibleMove of possibleMoves) {
-        const cell = table.rows[possibleMove[0]].cells[possibleMove[1]]
-        cell.classList.add("possible-move")
+        const tile = table.rows[possibleMove[0]].cells[possibleMove[1]]
+        tile.classList.add("possible-move")
     }
 }
 
@@ -301,8 +314,8 @@ function removePossibleMoves() {
 }
 
 // TODO: Refactor this function to include all, or at least most, of the move validations.
-function isValidMove() {
-    if (madeAMove) return false
+function isValidMove(tileSelected, tile) {
+    if (madeAMove || [...tile.classList].indexOf("possible-move") === -1) return false
     return true
 }
 
@@ -315,7 +328,11 @@ function movePiece(rowFrom, colFrom, rowTo, colTo) {
     if (board[rowTo][colTo].type === PAWN) board[rowTo][colTo].madeFirstMove()
 }
 
-function drawPiece(tile) {
+function erasePieceFromTile(tile) {
+    tile.removeChild(tile.children[0])
+}
+
+function drawPieceOnTile(tile) {
     tile.appendChild(tileSelected.children[0])
 }
 
@@ -326,5 +343,3 @@ function switchTurn() {
     tileSelected = undefined
     madeAMove = false
 }
-// Code to check if the selected tile's piece is the same as piece in the pieces array:
-// board[i][j] === board[Math.floor(tileSelected.id.slice(2)/8)][tileSelected.id.slice(2) % 8]
