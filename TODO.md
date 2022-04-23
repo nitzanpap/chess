@@ -14,6 +14,6 @@
 
 7. [x] Create a function that handles user clicks on tiles.
 
-8. [ ] Implement the showPossibleMoves() function and display it on the board.
+8. [x] Implement the showPossibleMoves() function and display it on the board.
 
 9. [ ] Add API documentation to all the functions and clean up the code.

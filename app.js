@@ -70,9 +70,16 @@ class Piece {
         return filteredMoves
     }
 
+    // TODO: Remove all moves that colide with pieces and their consecutive moves
+    // TODO: Add a special indicator for colision with an opponent's piece and display it.
     getPawnRelativeMoves() {
-        // TODO: Return different moves for the first step.
-        return this.color === WHITE_PLAYER ? [[1, 0]] : [[-1, 0]]
+        let result = []
+        result.push(this.color === WHITE_PLAYER ? [1, 0] : [-1, 0])
+        if (this.isOnFirstMove) {
+            result.push(this.color === WHITE_PLAYER ? [2, 0] : [-2, 0])
+            this.madeFirstMove()
+        }
+        return result
     }
 
     getRookRelativeMoves() {
@@ -138,6 +145,16 @@ class Piece {
     }
 }
 
+class PawnPiece extends Piece {
+    constructor(row, col, type, color) {
+        super(row, col, type, color)
+        this.isOnFirstMove = true
+    }
+    madeFirstMove() {
+        this.isOnFirstMove = false
+    }
+}
+
 runMainGameLoop()
 
 function runMainGameLoop() {
@@ -176,7 +193,7 @@ function createBoard() {
 }
 
 function addNewPieceToBoardArray(i, j, type, color) {
-    board[i][j] = new Piece(i, j, type, color)
+    board[i][j] = type === PAWN ? new PawnPiece(i, j, type, color) : new Piece(i, j, type, color)
 }
 
 function createPieces() {
