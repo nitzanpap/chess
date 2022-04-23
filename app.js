@@ -1,8 +1,8 @@
 const BOARD_SIZE = 8
 const ASCII_NUM_OF_A = 65
 
-const WHITE_PLAYER = "white"
-const BLACK_PLAYER = "black"
+const WHITE_PLAYER = "W"
+const BLACK_PLAYER = "B"
 
 const PAWN = "pawn"
 const ROOK = "rook"
@@ -10,6 +10,12 @@ const KNIGHT = "knight"
 const BISHOP = "bishop"
 const KING = "king"
 const QUEEN = "queen"
+
+let currentColorTurn = WHITE_PLAYER
+let board = [[], [], [], [], [], [], [], []]
+let tileSelected = undefined
+let madeAMove = false
+let table
 class Piece {
     constructor(row, col, type, color) {
         this.row = row
@@ -17,12 +23,70 @@ class Piece {
         this.type = type
         this.color = color
     }
-}
 
-let currentColorTurn = "W"
-let board = [[], [], [], [], [], [], [], []]
-let tileSelected = undefined
-let madeAMove = false
+    setRowAndColumn(row, col) {
+        this.row = row
+        this.col = col
+    }
+
+    getPossibleMoves() {
+        // Get relative moves
+        let relativeMoves
+        if (this.type === PAWN) {
+            relativeMoves = this.getPawnRelativeMoves()
+        } else if (this.type === ROOK) {
+            relativeMoves = this.getRookRelativeMoves()
+        } else if (this.type === KNIGHT) {
+            // TODO: Get moves
+        } else if (this.type === BISHOP) {
+            // TODO: Get moves
+        } else if (this.type === KING) {
+            // TODO: Get moves
+        } else if (this.type === QUEEN) {
+            // TODO: Get moves
+        } else {
+            console.log("Unknown type", type)
+        }
+        console.log("relativeMoves", relativeMoves)
+
+        // Get absolute moves
+        let absoluteMoves = []
+        for (let relativeMove of relativeMoves) {
+            const absoluteRow = this.row + relativeMove[0]
+            const absoluteCol = this.col + relativeMove[1]
+            absoluteMoves.push([absoluteRow, absoluteCol])
+        }
+        // console.log('absoluteMoves', absoluteMoves);
+
+        // Get filtered absolute moves
+        let filteredMoves = []
+        for (let absoluteMove of absoluteMoves) {
+            const absoluteRow = absoluteMove[0]
+            const absoluteCol = absoluteMove[1]
+            if (absoluteRow >= 0 && absoluteRow <= 7 && absoluteCol >= 0 && absoluteCol <= 7) {
+                filteredMoves.push(absoluteMove)
+            }
+        }
+        console.log("filteredMoves", filteredMoves)
+        return filteredMoves
+    }
+
+    getPawnRelativeMoves() {
+        // TODO: Give different answer to black player
+        return this.color === WHITE_PLAYER ? [[1, 0]] : [[-1, 0]]
+    }
+
+    getRookRelativeMoves() {
+        let result = []
+        for (let i = 1; i < BOARD_SIZE; i++) {
+            result.push([i, 0])
+            result.push([-i, 0])
+            result.push([0, i])
+            result.push([0, -i])
+        }
+        return result
+    }
+}
 
 runMainGameLoop()
 
@@ -35,16 +99,16 @@ function runMainGameLoop() {
 function createBoard() {
     // Create and draw board-container table
     const body = document.querySelector("body")
-    const boardContainer = document.createElement("table")
-    boardContainer.className = "board-container"
-    body.appendChild(boardContainer)
+    table = document.createElement("table")
+    table.className = "board-container"
+    body.appendChild(table)
 
     // Create and draw table rows
-    for (let i = BOARD_SIZE - 1; i >= 0; i--) {
+    for (let i = 0; i <= BOARD_SIZE - 1; i++) {
         const tr = document.createElement("tr")
         tr.className = "tr"
         tr.id = "tr" + i + ""
-        boardContainer.appendChild(tr)
+        table.appendChild(tr)
         // Create and draw table cells
         for (let j = 0; j <= BOARD_SIZE - 1; j++) {
             const td = document.createElement("td")
@@ -148,15 +212,29 @@ function selectTileClick(tile) {
     }
     // Select the given tile and update tileSelected accordingly
     tileSelected = tile
-    tile.classList.add("selectedTile")
+    tile.classList.add("selected-tile")
 }
 
 function removeSelectedTile() {
-    tileSelected.classList.remove("selectedTile")
+    tileSelected.classList.remove("selected-tile")
 }
 // TODO: Write this function.
 function showPossibleMoves(piece) {
-    console.log(piece)
+    // Clear all previous possible moves
+    removePossibleMoves()
+    let possibleMoves = piece.getPossibleMoves()
+    for (let possibleMove of possibleMoves) {
+        const cell = table.rows[possibleMove[0]].cells[possibleMove[1]]
+        cell.classList.add("possible-move")
+    }
+}
+
+function removePossibleMoves() {
+    for (let i = 0; i < BOARD_SIZE; i++) {
+        for (let j = 0; j < BOARD_SIZE; j++) {
+            table.rows[i].cells[j].classList.remove("possible-move")
+        }
+    }
 }
 
 // TODO: Refactor this function to include all, or at least most, of the move validations.
@@ -168,6 +246,8 @@ function isValidMove() {
 function movePiece(rowFrom, colFrom, rowTo, colTo) {
     board[rowTo][colTo] = board[rowFrom][colFrom]
     board[rowFrom][colFrom] = new Piece(Number(rowFrom), Number(colFrom), "e", "e")
+    board[rowTo][colTo].setRowAndColumn(rowTo, colTo)
+    console.log(board[rowTo][colTo])
     madeAMove = true
 }
 
@@ -177,6 +257,7 @@ function drawPiece(tile) {
 
 function switchTurn() {
     removeSelectedTile()
+    removePossibleMoves()
     currentColorTurn = currentColorTurn === "W" ? "B" : "W"
     tileSelected = undefined
     madeAMove = false

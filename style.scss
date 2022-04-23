@@ -5,6 +5,7 @@ $board-bg-color: brown;
 $cell-first-color: chocolate;
 $cell-second-color: blanchedalmond;
 $cell-hover-color: rgb(156, 64, 241);
+$possible-move-color: rgba(0, 106, 255, 0.5);
 
 // Sizes:
 $board-size: calc(min(80vw, 80vh));
@@ -63,12 +64,20 @@ body {
                 }
                 &:nth-of-type(2n) {
                     background-color: $cell-first-color;
-                    &.selectedTile {
+                    &.selected-tile {
                         background-color: $cell-hover-color;
                     }
+                    &.possible-move {
+                        -webkit-box-shadow: inset 0px 0px 5px 16px $possible-move-color;
+                        box-shadow: inset 0px 0px 5px 16px $possible-move-color;
+                    }
                 }
-                &.selectedTile {
+                &.selected-tile {
                     background-color: $cell-hover-color;
+                }
+                &.possible-move {
+                    -webkit-box-shadow: inset 0px 0px 5px 16px $possible-move-color;
+                    box-shadow: inset 0px 0px 5px 16px $possible-move-color;
                 }
             }
             // Styling the even rows differntly from the odd rows
@@ -78,8 +87,12 @@ body {
                     transition: all 0.2s ease-in-out;
                     &:nth-of-type(2n) {
                         background-color: $cell-second-color;
-                        &.selectedTile {
+                        &.selected-tile {
                             background-color: $cell-hover-color;
+                        }
+                        &.possible-move {
+                            -webkit-box-shadow: inset 0px 0px 5px 16px $possible-move-color;
+                            box-shadow: inset 0px 0px 5px 16px $possible-move-color;
                         }
                     }
                     img {
@@ -90,8 +103,12 @@ body {
                             width: 100%;
                         }
                     }
-                    &.selectedTile {
+                    &.selected-tile {
                         background-color: $cell-hover-color;
+                    }
+                    &.possible-move {
+                        -webkit-box-shadow: inset 0px 0px 5px 16px $possible-move-color;
+                        box-shadow: inset 0px 0px 5px 16px $possible-move-color;
                     }
                 }
             }

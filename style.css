@@ -98,12 +98,22 @@ body .board-container tr td:nth-of-type(2n) {
   background-color: chocolate;
 }
 
-body .board-container tr td:nth-of-type(2n).selectedTile {
+body .board-container tr td:nth-of-type(2n).selected-tile {
   background-color: #9c40f1;
 }
 
-body .board-container tr td.selectedTile {
+body .board-container tr td:nth-of-type(2n).possible-move {
+  -webkit-box-shadow: inset 0px 0px 5px 16px rgba(0, 106, 255, 0.5);
+  box-shadow: inset 0px 0px 5px 16px rgba(0, 106, 255, 0.5);
+}
+
+body .board-container tr td.selected-tile {
   background-color: #9c40f1;
+}
+
+body .board-container tr td.possible-move {
+  -webkit-box-shadow: inset 0px 0px 5px 16px rgba(0, 106, 255, 0.5);
+  box-shadow: inset 0px 0px 5px 16px rgba(0, 106, 255, 0.5);
 }
 
 body .board-container tr:nth-of-type(2n) td {
@@ -116,8 +126,13 @@ body .board-container tr:nth-of-type(2n) td:nth-of-type(2n) {
   background-color: blanchedalmond;
 }
 
-body .board-container tr:nth-of-type(2n) td:nth-of-type(2n).selectedTile {
+body .board-container tr:nth-of-type(2n) td:nth-of-type(2n).selected-tile {
   background-color: #9c40f1;
+}
+
+body .board-container tr:nth-of-type(2n) td:nth-of-type(2n).possible-move {
+  -webkit-box-shadow: inset 0px 0px 5px 16px rgba(0, 106, 255, 0.5);
+  box-shadow: inset 0px 0px 5px 16px rgba(0, 106, 255, 0.5);
 }
 
 body .board-container tr:nth-of-type(2n) td img {
@@ -131,7 +146,12 @@ body .board-container tr:nth-of-type(2n) td img:hover {
   width: 100%;
 }
 
-body .board-container tr:nth-of-type(2n) td.selectedTile {
+body .board-container tr:nth-of-type(2n) td.selected-tile {
   background-color: #9c40f1;
+}
+
+body .board-container tr:nth-of-type(2n) td.possible-move {
+  -webkit-box-shadow: inset 0px 0px 5px 16px rgba(0, 106, 255, 0.5);
+  box-shadow: inset 0px 0px 5px 16px rgba(0, 106, 255, 0.5);
 }
 /*# sourceMappingURL=style.css.map */
