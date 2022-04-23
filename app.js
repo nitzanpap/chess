@@ -75,10 +75,7 @@ class Piece {
     getPawnRelativeMoves() {
         let result = []
         result.push(this.color === WHITE_PLAYER ? [1, 0] : [-1, 0])
-        if (this.isOnFirstMove) {
-            result.push(this.color === WHITE_PLAYER ? [2, 0] : [-2, 0])
-            this.madeFirstMove()
-        }
+        if (this.isOnFirstMove) result.push(this.color === WHITE_PLAYER ? [2, 0] : [-2, 0])
         return result
     }
 
@@ -315,6 +312,7 @@ function movePiece(rowFrom, colFrom, rowTo, colTo) {
     board[rowTo][colTo].setRowAndColumn(rowTo, colTo)
     console.log(board[rowTo][colTo])
     madeAMove = true
+    if (board[rowTo][colTo].type === PAWN) board[rowTo][colTo].madeFirstMove()
 }
 
 function drawPiece(tile) {
