@@ -18,4 +18,4 @@
 
 9. [ ] Add API documentation to all the functions and clean up the code.
 
-10. [ ] Add a function that checks if the king is under threat(Check) and if the king is doomed(Check-mate)
+10. [ ] Add a function that checks if the king is under threat(Check) and if the king is doomed(Check-mate).
