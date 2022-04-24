@@ -22,6 +22,8 @@ class Piece {
         this.col = col
         this.type = type
         this.color = color
+        if (this.color === "e") this.opponentColor = "e"
+        else this.opponentColor = color === WHITE_PLAYER ? BLACK_PLAYER : WHITE_PLAYER
         this.threatend = false
     }
 
@@ -66,11 +68,19 @@ class Piece {
 
     // TODO: Remove all moves that colide with pieces and their consecutive moves
     // TODO: Add a special indicator for colision with an opponent's piece and display it.
-    getPawnRelativeMoves(board, row, col) {
+    // TODO: Fix bug that an this function marks the extra tile on the first move Even if there is an opponent's piece blocking its path.
+    // TODO: Refactor this function to use getMovesInDirection().
+    getPawnRelativeMoves(board) {
         let result = []
-        result.push(this.color === WHITE_PLAYER ? [row + 1, col] : [row - 1, col])
+        if (this.color === WHITE_PLAYER) {
+            result.push([this.row + 1, this.col])
+        } else result.push([this.row - 1, this.col])
+
         if (this.isOnFirstMove)
-            result.push(this.color === WHITE_PLAYER ? [row + 2, col] : [row - 2, col])
+            if (this.color === WHITE_PLAYER) {
+                result.push([this.row + 2, this.col])
+            } else result.push([this.row - 2, this.col])
+
         return result
     }
 
