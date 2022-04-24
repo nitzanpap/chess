@@ -22,6 +22,7 @@ class Piece {
         this.col = col
         this.type = type
         this.color = color
+        this.threatend = false
     }
 
     setRowAndColumn(row, col) {
@@ -29,40 +30,33 @@ class Piece {
         this.col = col
     }
 
-    getPossibleMoves() {
+    getPossibleMoves(board) {
         // Get relative moves
-        let relativeMoves
+        let absoluteMoves = []
+        // absoluteMoves = this.getKnightRelativeMoves()
         if (this.type === PAWN) {
-            relativeMoves = this.getPawnRelativeMoves()
+            absoluteMoves = this.getPawnRelativeMoves(board, this.row, this.col)
         } else if (this.type === ROOK) {
-            relativeMoves = this.getRookRelativeMoves()
+            this.getRookRelativeMoves(board, absoluteMoves, this.row, this.col)
         } else if (this.type === KNIGHT) {
-            relativeMoves = this.getKnightRelativeMoves()
+            this.getKnightRelativeMoves(board, absoluteMoves, this.row, this.col)
         } else if (this.type === BISHOP) {
-            relativeMoves = this.getBishopRelativeMoves()
+            this.getBishopRelativeMoves(board, absoluteMoves, this.row, this.col)
         } else if (this.type === KING) {
-            relativeMoves = this.getKingRelativeMoves()
+            this.getKingRelativeMoves(absoluteMoves)
         } else if (this.type === QUEEN) {
-            relativeMoves = this.getQueenRelativeMoves()
+            this.getQueenRelativeMoves(board, absoluteMoves, this.row, this.col)
         } else {
             console.log("Unknown type", type)
         }
-        console.log("relativeMoves", relativeMoves)
-
-        // Get absolute moves
-        let absoluteMoves = []
-        for (let relativeMove of relativeMoves) {
-            const absoluteRow = this.row + relativeMove[0]
-            const absoluteCol = this.col + relativeMove[1]
-            absoluteMoves.push([absoluteRow, absoluteCol])
-        }
+        console.log("absoluteMoves", absoluteMoves)
 
         // Get filtered absolute moves
         let filteredMoves = []
         for (let absoluteMove of absoluteMoves) {
-            const absoluteRow = absoluteMove[0]
-            const absoluteCol = absoluteMove[1]
-            if (absoluteRow >= 0 && absoluteRow <= 7 && absoluteCol >= 0 && absoluteCol <= 7) {
+            const relativeRow = absoluteMove[0]
+            const relativeCol = absoluteMove[1]
+            if (relativeRow >= 0 && relativeRow <= 7 && relativeCol >= 0 && relativeCol <= 7) {
                 filteredMoves.push(absoluteMove)
             }
         }
@@ -72,73 +66,91 @@ class Piece {
 
     // TODO: Remove all moves that colide with pieces and their consecutive moves
     // TODO: Add a special indicator for colision with an opponent's piece and display it.
-    getPawnRelativeMoves() {
+    getPawnRelativeMoves(board, row, col) {
         let result = []
-        result.push(this.color === WHITE_PLAYER ? [1, 0] : [-1, 0])
-        if (this.isOnFirstMove) result.push(this.color === WHITE_PLAYER ? [2, 0] : [-2, 0])
+        result.push(this.color === WHITE_PLAYER ? [row + 1, col] : [row - 1, col])
+        if (this.isOnFirstMove)
+            result.push(this.color === WHITE_PLAYER ? [row + 2, col] : [row - 2, col])
         return result
     }
 
-    getRookRelativeMoves() {
-        let result = []
-        for (let i = 1; i < BOARD_SIZE; i++) {
-            result.push([i, 0])
-            result.push([-i, 0])
-            result.push([0, i])
-            result.push([0, -i])
+    getMovesInDirection(board, result, i, j, rowDirection, colDirection, optionalIterLimit = -1) {
+        // If optionalIterLimit has been given a value, then only run this recursive function that
+        // many times.
+        if (optionalIterLimit != 0) {
+            // If tile is out of bounds
+            if (i >= 0 && i <= 7 && j >= 0 && j <= 7) {
+                // If encountered an empty tile
+                if (board[i][j].color === "e") {
+                    result.push([i, j])
+                    this.getMovesInDirection(
+                        board,
+                        result,
+                        i + rowDirection,
+                        j + colDirection,
+                        rowDirection,
+                        colDirection,
+                        optionalIterLimit - 1
+                    )
+                }
+                // If encountered an opponent piece
+                else if (board[i][j].color !== this.color) {
+                    console.log("Opponent's piece threatend at (" + i + ", " + j + ")")
+                    result.push([i, j])
+                    board[i][j].threatend = true
+                }
+                // If encountered an ally piece
+                else {
+                    console.log("Encountered an ally piece at (" + i + ", " + j + ")")
+                }
+            }
         }
-        return result
     }
 
-    getKnightRelativeMoves() {
-        let result = []
-        result.push([-1, -2])
-        result.push([-2, -1])
-        result.push([-1, 2])
-        result.push([-2, 1])
-        result.push([1, 2])
-        result.push([2, 1])
-        result.push([1, -2])
-        result.push([2, -1])
-        return result
+    getRookRelativeMoves(board, result) {
+        // First iteration calls for the relevant directions
+        this.getMovesInDirection(board, result, this.row + 1, this.col, 1, 0)
+        this.getMovesInDirection(board, result, this.row - 1, this.col, -1, 0)
+        this.getMovesInDirection(board, result, this.row, this.col + 1, 0, +1)
+        this.getMovesInDirection(board, result, this.row, this.col - 1, 0, -1)
     }
 
-    getBishopRelativeMoves() {
-        let result = []
-        for (let i = 1; i < BOARD_SIZE; i++) {
-            result.push([i, i])
-            result.push([-i, -i])
-            result.push([i, -i])
-            result.push([-i, i])
-        }
-        return result
+    getKnightRelativeMoves(board, result) {
+        // First iteration calls for the relevant directions
+        this.getMovesInDirection(board, result, this.row - 1, this.col - 2, -1, -2, 1)
+        this.getMovesInDirection(board, result, this.row - 2, this.col - 1, -2, -1, 1)
+        this.getMovesInDirection(board, result, this.row - 1, this.col + 2, -1, +2, 1)
+        this.getMovesInDirection(board, result, this.row - 2, this.col + 1, -2, +1, 1)
+        this.getMovesInDirection(board, result, this.row + 1, this.col + 2, +1, +2, 1)
+        this.getMovesInDirection(board, result, this.row + 2, this.col + 1, +2, +1, 1)
+        this.getMovesInDirection(board, result, this.row + 1, this.col - 2, +1, -2, 1)
+        this.getMovesInDirection(board, result, this.row + 2, this.col - 1, +2, -1, 1)
     }
 
-    getKingRelativeMoves() {
-        let result = []
+    getBishopRelativeMoves(board, result) {
+        // First iteration calls for the relevant directions
+        this.getMovesInDirection(board, result, this.row + 1, this.col + 1, 1, 1)
+        this.getMovesInDirection(board, result, this.row - 1, this.col - 1, -1, -1)
+        this.getMovesInDirection(board, result, this.row + 1, this.col - 1, 1, -1)
+        this.getMovesInDirection(board, result, this.row - 1, this.col + 1, -1, 1)
+    }
+
+    getKingRelativeMoves(result) {
         for (let i = -1; i <= 1; i++) {
             for (let j = -1; j <= 1; j++) {
-                if (i != 0 || j != 0) result.push([i, j])
+                if (i != 0 || j != 0)
+                    this.getMovesInDirection(board, result, this.row + i, this.col + j, i, j, 1)
             }
         }
         return result
     }
 
-    getQueenRelativeMoves() {
-        let result = []
-        for (let i = 1; i < BOARD_SIZE; i++) {
-            // Moves of a rook
-            result.push([i, 0])
-            result.push([-i, 0])
-            result.push([0, i])
-            result.push([0, -i])
-            // Moves of a bishop
-            result.push([i, i])
-            result.push([-i, -i])
-            result.push([i, -i])
-            result.push([-i, i])
-        }
-        return result
+    getQueenRelativeMoves(board, result) {
+        // First iteration calls for the relevant directions
+        // Rook's moves
+        this.getRookRelativeMoves(board, result, this.row, this.col)
+        // Bishop's moves
+        this.getBishopRelativeMoves(board, result, this.row, this.col)
     }
 }
 
@@ -298,10 +310,11 @@ function removeSelectedTile() {
 function showPossibleMoves(piece) {
     // Clear all previous possible moves
     removePossibleMoves()
-    let possibleMoves = piece.getPossibleMoves()
+    let possibleMoves = piece.getPossibleMoves(board)
     for (let possibleMove of possibleMoves) {
         const tile = table.rows[possibleMove[0]].cells[possibleMove[1]]
         tile.classList.add("possible-move")
+        getPieceFromTile(tile).threatend = false
     }
 }
 
