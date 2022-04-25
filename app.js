@@ -68,20 +68,29 @@ class Piece {
 
     // TODO: Remove all moves that colide with pieces and their consecutive moves
     // TODO: Add a special indicator for colision with an opponent's piece and display it.
-    // TODO: Fix bug that an this function marks the extra tile on the first move Even if there is an opponent's piece blocking its path.
-    // TODO: Refactor this function to use getMovesInDirection().
     getPawnRelativeMoves(board) {
         let result = []
-        if (this.color === WHITE_PLAYER) {
-            result.push([this.row + 1, this.col])
-        } else result.push([this.row - 1, this.col])
-
-        if (this.isOnFirstMove)
-            if (this.color === WHITE_PLAYER) {
-                result.push([this.row + 2, this.col])
-            } else result.push([this.row - 2, this.col])
-
+        // A factor that determines the vertical direction of the pawn based on it's color
+        let colorFactor = this.color === WHITE_PLAYER ? 1 : -1
+        let numOfMovesAllowed = this.isOnFirstMove ? 2 : 1
+        this.getMovesInDirection(
+            result,
+            this.row + colorFactor,
+            this.col,
+            colorFactor,
+            0,
+            numOfMovesAllowed
+        )
         return result
+        // let result = []
+        // if (this.color === WHITE_PLAYER) {
+        //     result.push([this.row + 1, this.col])
+        // } else result.push([this.row - 1, this.col])
+        // if (this.isOnFirstMove)
+        //     if (this.color === WHITE_PLAYER) {
+        //         result.push([this.row + 2, this.col])
+        //     } else result.push([this.row - 2, this.col])
+        // return result
     }
     // TODO: Refactor this function so it can receive the initial piece's coordinate, and adds to it according to the direction.
     // TODO: Example: Instead of calling getMovesInDirection(arr,i+1,j+1,1,1), should be getMovesInDirection(arr,i,j,1,1).
