@@ -37,17 +37,17 @@ class Piece {
         let absoluteMoves = []
         // absoluteMoves = this.getKnightRelativeMoves()
         if (this.type === PAWN) {
-            absoluteMoves = this.getPawnRelativeMoves(board, this.row, this.col)
+            absoluteMoves = this.getPawnRelativeMoves(this.row, this.col)
         } else if (this.type === ROOK) {
-            this.getRookRelativeMoves(board, absoluteMoves, this.row, this.col)
+            absoluteMoves = this.getRookRelativeMoves(this.row, this.col)
         } else if (this.type === KNIGHT) {
-            this.getKnightRelativeMoves(board, absoluteMoves, this.row, this.col)
+            absoluteMoves = this.getKnightRelativeMoves(this.row, this.col)
         } else if (this.type === BISHOP) {
-            this.getBishopRelativeMoves(board, absoluteMoves, this.row, this.col)
+            absoluteMoves = this.getBishopRelativeMoves(this.row, this.col)
         } else if (this.type === KING) {
-            this.getKingRelativeMoves(absoluteMoves)
+            absoluteMoves = this.getKingRelativeMoves()
         } else if (this.type === QUEEN) {
-            this.getQueenRelativeMoves(board, absoluteMoves, this.row, this.col)
+            absoluteMoves = this.getQueenRelativeMoves(this.row, this.col)
         } else {
             console.log("Unknown type", type)
         }
@@ -83,8 +83,9 @@ class Piece {
 
         return result
     }
-
-    getMovesInDirection(board, result, i, j, rowDirection, colDirection, optionalIterLimit = -1) {
+    // TODO: Refactor this function so it can receive the initial piece's coordinate, and adds to it according to the direction.
+    // TODO: Example: Instead of calling getMovesInDirection(arr,i+1,j+1,1,1), should be getMovesInDirection(arr,i,j,1,1).
+    getMovesInDirection(result, i, j, rowDirection, colDirection, optionalIterLimit = -1) {
         // If optionalIterLimit has been given a value, then only run this recursive function that
         // many times.
         if (optionalIterLimit != 0) {
@@ -94,7 +95,6 @@ class Piece {
                 if (board[i][j].color === "e") {
                     result.push([i, j])
                     this.getMovesInDirection(
-                        board,
                         result,
                         i + rowDirection,
                         j + colDirection,
@@ -117,50 +117,59 @@ class Piece {
         }
     }
 
-    getRookRelativeMoves(board, result) {
+    getRookRelativeMoves() {
+        let result = []
         // First iteration calls for the relevant directions
-        this.getMovesInDirection(board, result, this.row + 1, this.col, 1, 0)
-        this.getMovesInDirection(board, result, this.row - 1, this.col, -1, 0)
-        this.getMovesInDirection(board, result, this.row, this.col + 1, 0, +1)
-        this.getMovesInDirection(board, result, this.row, this.col - 1, 0, -1)
+        this.getMovesInDirection(result, this.row + 1, this.col, 1, 0)
+        this.getMovesInDirection(result, this.row - 1, this.col, -1, 0)
+        this.getMovesInDirection(result, this.row, this.col + 1, 0, +1)
+        this.getMovesInDirection(result, this.row, this.col - 1, 0, -1)
+        return result
     }
 
-    getKnightRelativeMoves(board, result) {
+    getKnightRelativeMoves() {
+        let result = []
         // First iteration calls for the relevant directions
-        this.getMovesInDirection(board, result, this.row - 1, this.col - 2, -1, -2, 1)
-        this.getMovesInDirection(board, result, this.row - 2, this.col - 1, -2, -1, 1)
-        this.getMovesInDirection(board, result, this.row - 1, this.col + 2, -1, +2, 1)
-        this.getMovesInDirection(board, result, this.row - 2, this.col + 1, -2, +1, 1)
-        this.getMovesInDirection(board, result, this.row + 1, this.col + 2, +1, +2, 1)
-        this.getMovesInDirection(board, result, this.row + 2, this.col + 1, +2, +1, 1)
-        this.getMovesInDirection(board, result, this.row + 1, this.col - 2, +1, -2, 1)
-        this.getMovesInDirection(board, result, this.row + 2, this.col - 1, +2, -1, 1)
+        this.getMovesInDirection(result, this.row - 1, this.col - 2, -1, -2, 1)
+        this.getMovesInDirection(result, this.row - 2, this.col - 1, -2, -1, 1)
+        this.getMovesInDirection(result, this.row - 1, this.col + 2, -1, +2, 1)
+        this.getMovesInDirection(result, this.row - 2, this.col + 1, -2, +1, 1)
+        this.getMovesInDirection(result, this.row + 1, this.col + 2, +1, +2, 1)
+        this.getMovesInDirection(result, this.row + 2, this.col + 1, +2, +1, 1)
+        this.getMovesInDirection(result, this.row + 1, this.col - 2, +1, -2, 1)
+        this.getMovesInDirection(result, this.row + 2, this.col - 1, +2, -1, 1)
+        return result
     }
 
-    getBishopRelativeMoves(board, result) {
+    getBishopRelativeMoves() {
+        let result = []
         // First iteration calls for the relevant directions
-        this.getMovesInDirection(board, result, this.row + 1, this.col + 1, 1, 1)
-        this.getMovesInDirection(board, result, this.row - 1, this.col - 1, -1, -1)
-        this.getMovesInDirection(board, result, this.row + 1, this.col - 1, 1, -1)
-        this.getMovesInDirection(board, result, this.row - 1, this.col + 1, -1, 1)
+        this.getMovesInDirection(result, this.row + 1, this.col + 1, 1, 1)
+        this.getMovesInDirection(result, this.row - 1, this.col - 1, -1, -1)
+        this.getMovesInDirection(result, this.row + 1, this.col - 1, 1, -1)
+        this.getMovesInDirection(result, this.row - 1, this.col + 1, -1, 1)
+        return result
     }
 
-    getKingRelativeMoves(result) {
+    getKingRelativeMoves() {
+        let result = []
         for (let i = -1; i <= 1; i++) {
             for (let j = -1; j <= 1; j++) {
                 if (i != 0 || j != 0)
-                    this.getMovesInDirection(board, result, this.row + i, this.col + j, i, j, 1)
+                    this.getMovesInDirection(result, this.row + i, this.col + j, i, j, 1)
             }
         }
         return result
     }
 
-    getQueenRelativeMoves(board, result) {
+    getQueenRelativeMoves() {
+        let result = []
         // First iteration calls for the relevant directions
         // Rook's moves
-        this.getRookRelativeMoves(board, result, this.row, this.col)
+        this.getRookRelativeMoves(result, this.row, this.col)
         // Bishop's moves
-        this.getBishopRelativeMoves(board, result, this.row, this.col)
+        this.getBishopRelativeMoves(result, this.row, this.col)
+        return result
     }
 }
 
