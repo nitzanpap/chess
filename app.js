@@ -37,17 +37,17 @@ class Piece {
         let absoluteMoves = []
         // absoluteMoves = this.getKnightRelativeMoves()
         if (this.type === PAWN) {
-            absoluteMoves = this.getPawnRelativeMoves(this.row, this.col)
+            absoluteMoves = this.getPawnRelativeMoves()
         } else if (this.type === ROOK) {
-            absoluteMoves = this.getRookRelativeMoves(this.row, this.col)
+            absoluteMoves = this.getRookRelativeMoves()
         } else if (this.type === KNIGHT) {
-            absoluteMoves = this.getKnightRelativeMoves(this.row, this.col)
+            absoluteMoves = this.getKnightRelativeMoves()
         } else if (this.type === BISHOP) {
-            absoluteMoves = this.getBishopRelativeMoves(this.row, this.col)
+            absoluteMoves = this.getBishopRelativeMoves()
         } else if (this.type === KING) {
             absoluteMoves = this.getKingRelativeMoves()
         } else if (this.type === QUEEN) {
-            absoluteMoves = this.getQueenRelativeMoves(this.row, this.col)
+            absoluteMoves = this.getQueenRelativeMoves()
         } else {
             console.log("Unknown type", type)
         }
@@ -163,13 +163,7 @@ class Piece {
     }
 
     getQueenRelativeMoves() {
-        let result = []
-        // First iteration calls for the relevant directions
-        // Rook's moves
-        this.getRookRelativeMoves(result, this.row, this.col)
-        // Bishop's moves
-        this.getBishopRelativeMoves(result, this.row, this.col)
-        return result
+        return this.getRookRelativeMoves().concat(this.getBishopRelativeMoves())
     }
 }
 
