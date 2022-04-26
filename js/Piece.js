@@ -49,8 +49,6 @@ class Piece {
         return absoluteMoves
     }
 
-    // TODO: Remove all moves that colide with pieces and their consecutive moves
-    // TODO: Add a special indicator for colision with an opponent's piece and display it.
     getPawnRelativeMoves() {
         let result = []
         let i = this.row + this.pawnDirectionFactor
