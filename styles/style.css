@@ -12,6 +12,7 @@
 
 body {
   font-family: "Roboto", sans-serif;
+  font-size: calc(min(2.5vw, 2.5vh));
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -33,6 +34,7 @@ body {
 body .message-box {
   color: black;
   height: 10%;
+  font-size: 1.8em;
 }
 
 body .message-box-capture {
@@ -44,7 +46,10 @@ body .message-box-check {
 }
 
 body .message-box-checkmate {
-  color: mediumslateblue;
+  color: #9c40f1;
+  -webkit-text-decoration: wavy underline 4px #9c40f1;
+          text-decoration: wavy underline 4px #9c40f1;
+  text-underline-offset: 10px;
 }
 
 body .board-container {

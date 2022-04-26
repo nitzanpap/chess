@@ -1,8 +1,8 @@
 const BOARD_SIZE = 8
 const ASCII_NUM_OF_A = 65
 
-const WHITE_PLAYER = "W"
-const BLACK_PLAYER = "B"
+const WHITE_PLAYER = "White"
+const BLACK_PLAYER = "Black"
 
 const PAWN = "pawn"
 const ROOK = "rook"
@@ -63,12 +63,12 @@ function createPieces() {
     // Draw two special rows
     for (let i = 0; i <= 1; i++) {
         let tr = document.querySelector("#tr" + i)
-        let tileColor = "W"
+        let tileColor = "White"
         // Runs twice - Once for the white pieces, and once for the black pieces
         for (let k = 1; k <= 2; k++) {
             // k alternates between creating the white and black pieces
             if (k === 2) {
-                tileColor = "B"
+                tileColor = "Black"
                 tr = document.querySelector("#tr" + (BOARD_SIZE - 1 - i))
             }
             for (let j = 0; j <= BOARD_SIZE - 1; j++) {
@@ -129,18 +129,22 @@ function handleTileClick(tile) {
         const rowFrom = tileSelected.classList[0].slice(5)
         const colFrom = tileSelected.classList[1].slice(5)
         if (isValidMove(tileSelected, tile)) {
+            let actionMade
+            messageBox.innerText = ""
             // Empty tile clicked
             if (piece.color === "e") {
+                actionMade = "move"
             }
             // Opposite player's tile clicked
             else {
                 // Print what piece captured which piece
-                updateMessageBox("capture", previousPiece, piece)
+                actionMade = "capture"
                 erasePieceFromTile(tile)
             }
             // Update board array
             movePiece(rowFrom, colFrom, piece.row, piece.col)
             // Update board screen
+            updateMessageBox(actionMade, previousPiece, piece)
             drawPieceOnTile(tile)
             selectTileClick(tile)
 
@@ -163,6 +167,14 @@ function updateMessageBox(event, piece1, piece2 = undefined) {
             piece1.type +
             " moved to " +
             coordinateToChessCoordinate(piece1.row, piece1.col)
+    }
+    if (event === "check") {
+        messageBox.innerText = "Check on " + piece1.color + " player king!"
+        messageBox.classList.add("message-box-check")
+    }
+    if (event === "checkmate") {
+        messageBox.innerText = "Checkmate! " + piece1.color + " player Won!"
+        messageBox.classList.add("message-box-checkmate")
     }
 }
 function coordinateToChessCoordinate(row, col) {
@@ -214,7 +226,6 @@ function movePiece(rowFrom, colFrom, rowTo, colTo) {
     board[rowFrom][colFrom] = new Piece(Number(rowFrom), Number(colFrom), "e", "e")
     board[rowTo][colTo].setRowAndColumn(rowTo, colTo)
     // Print what piece moved, and where did it move to
-    updateMessageBox("move", board[rowTo][colTo], undefined)
     madeAMove = true
     if (board[rowTo][colTo].type === PAWN) board[rowTo][colTo].madeFirstMove()
 }
@@ -230,7 +241,7 @@ function drawPieceOnTile(tile) {
 function switchTurn() {
     removeSelectedTile()
     removePossibleMoves()
-    currentColorTurn = currentColorTurn === "W" ? "B" : "W"
+    currentColorTurn = currentColorTurn === "White" ? "Black" : "White"
     tileSelected = undefined
     madeAMove = false
 }
