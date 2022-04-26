@@ -29,7 +29,17 @@ body {
     overflow: hidden;
     margin: 0;
     .message-box {
+        color: black;
         height: 10%;
+    }
+    .message-box-capture {
+        color: blue;
+    }
+    .message-box-check {
+        color: crimson;
+    }
+    .message-box-checkmate {
+        color: $possible-move-color;
     }
     .board-container {
         display: flex;

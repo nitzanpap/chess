@@ -134,18 +134,8 @@ function handleTileClick(tile) {
             }
             // Opposite player's tile clicked
             else {
-                updateMessageBox("capture", previousPiece, piece)
                 // Print what piece captured which piece
-                console.log(
-                    previousPiece.color +
-                        " " +
-                        previousPiece.type +
-                        " Captured " +
-                        piece.color +
-                        " " +
-                        piece.type +
-                        "!"
-                )
+                updateMessageBox("capture", previousPiece, piece)
                 erasePieceFromTile(tile)
             }
             // Update board array
@@ -161,10 +151,22 @@ function handleTileClick(tile) {
 
 function updateMessageBox(event, piece1, piece2 = undefined) {
     messageBox.innerText = ""
+    messageBox.className = "message-box"
     if (event === "capture") {
         messageBox.innerText =
             piece1.color + " " + piece1.type + " Captured " + piece2.color + " " + piece2.type + "!"
+        messageBox.classList.add("message-box-capture")
+    } else if (event === "move") {
+        messageBox.innerText =
+            piece1.color +
+            " " +
+            piece1.type +
+            " moved to " +
+            coordinateToChessCoordinate(piece1.row, piece1.col)
     }
+}
+function coordinateToChessCoordinate(row, col) {
+    return String.fromCharCode(ASCII_NUM_OF_A + row) + col
 }
 
 function selectTileClick(tile) {
@@ -212,16 +214,7 @@ function movePiece(rowFrom, colFrom, rowTo, colTo) {
     board[rowFrom][colFrom] = new Piece(Number(rowFrom), Number(colFrom), "e", "e")
     board[rowTo][colTo].setRowAndColumn(rowTo, colTo)
     // Print what piece moved, and where did it move to
-    console.log(
-        board[rowTo][colTo].color +
-            " " +
-            board[rowTo][colTo].type +
-            " moved to (" +
-            rowTo +
-            "," +
-            colTo +
-            ")"
-    )
+    updateMessageBox("move", board[rowTo][colTo], undefined)
     madeAMove = true
     if (board[rowTo][colTo].type === PAWN) board[rowTo][colTo].madeFirstMove()
 }

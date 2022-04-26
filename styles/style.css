@@ -31,7 +31,20 @@ body {
 }
 
 body .message-box {
+  color: black;
   height: 10%;
+}
+
+body .message-box-capture {
+  color: blue;
+}
+
+body .message-box-check {
+  color: crimson;
+}
+
+body .message-box-checkmate {
+  color: mediumslateblue;
 }
 
 body .board-container {
