@@ -12,8 +12,10 @@ $threatend-color: crimson;
 $board-size: calc(min(80vw, 80vh));
 * {
     box-sizing: border-box;
+    text-align: center;
     margin: 0;
     padding: 0;
+    text-align: center;
     a {
         text-decoration: none;
     }
@@ -29,10 +31,17 @@ body {
     height: 100vh;
     overflow: hidden;
     margin: 0;
+    gap: 5%;
     .message-box {
-        color: black;
-        height: 10%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: calc(min(8vw, 8vh));
+        padding: calc(min(1vw, 1vh));
         font-size: 1.8em;
+        background-color: lightgrey;
+        border: 0.2em solid rgb(77, 77, 77);
+        border-radius: 20px;
     }
     .message-box-capture {
         color: blue;
