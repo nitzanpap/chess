@@ -177,7 +177,6 @@ function showPossibleMoves(piece) {
     for (let possibleMove of possibleMoves) {
         const tile = getTileFromPiece(board[possibleMove[0]][possibleMove[1]])
         tile.classList.add("possible-move")
-        getPieceFromTile(tile).threatend = false
     }
 }
 
@@ -185,6 +184,8 @@ function removePossibleMoves() {
     for (let i = 0; i < BOARD_SIZE; i++) {
         for (let j = 0; j < BOARD_SIZE; j++) {
             table.rows[i].cells[j].classList.remove("possible-move")
+            table.rows[i].cells[j].classList.remove("threatend")
+            board[i][j].threatend = false
         }
     }
 }

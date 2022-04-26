@@ -6,6 +6,7 @@ $cell-first-color: chocolate;
 $cell-second-color: blanchedalmond;
 $cell-hover-color: rgb(156, 64, 241);
 $possible-move-color: mediumslateblue;
+$threatend-color: crimson;
 
 // Sizes:
 $board-size: calc(min(80vw, 80vh));
@@ -72,6 +73,10 @@ body {
                         box-shadow: 0px 10px 10px -10px #000000,
                             inset 0px 0px 50px 0px $possible-move-color;
                     }
+                    &.threatend {
+                        box-shadow: 0px 10px 10px -10px #000000,
+                            inset 0px 0px 50px 0px $threatend-color;
+                    }
                 }
                 &.selected-tile {
                     background-color: $cell-hover-color;
@@ -79,6 +84,9 @@ body {
                 &.possible-move {
                     box-shadow: 0px 10px 10px -10px #000000,
                         inset 0px 0px 50px 0px $possible-move-color;
+                }
+                &.threatend {
+                    box-shadow: 0px 10px 10px -10px #000000, inset 0px 0px 50px 0px $threatend-color;
                 }
             }
             // Styling the even rows differntly from the odd rows
@@ -95,6 +103,10 @@ body {
                             box-shadow: 0px 10px 10px -10px #000000,
                                 inset 0px 0px 50px 0px $possible-move-color;
                         }
+                        &.threatend {
+                            box-shadow: 0px 10px 10px -10px #000000,
+                                inset 0px 0px 50px 0px $threatend-color;
+                        }
                     }
                     img {
                         cursor: pointer;
@@ -110,6 +122,10 @@ body {
                     &.possible-move {
                         box-shadow: 0px 10px 10px -10px #000000,
                             inset 0px 0px 50px 0px $possible-move-color;
+                    }
+                    &.threatend {
+                        box-shadow: 0px 10px 10px -10px #000000,
+                            inset 0px 0px 50px 0px $threatend-color;
                     }
                 }
             }

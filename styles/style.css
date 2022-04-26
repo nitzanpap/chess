@@ -107,6 +107,11 @@ body .board-container tr td:nth-of-type(2n).possible-move {
           box-shadow: 0px 10px 10px -10px #000000, inset 0px 0px 50px 0px mediumslateblue;
 }
 
+body .board-container tr td:nth-of-type(2n).threatend {
+  -webkit-box-shadow: 0px 10px 10px -10px #000000, inset 0px 0px 50px 0px crimson;
+          box-shadow: 0px 10px 10px -10px #000000, inset 0px 0px 50px 0px crimson;
+}
+
 body .board-container tr td.selected-tile {
   background-color: #9c40f1;
 }
@@ -114,6 +119,11 @@ body .board-container tr td.selected-tile {
 body .board-container tr td.possible-move {
   -webkit-box-shadow: 0px 10px 10px -10px #000000, inset 0px 0px 50px 0px mediumslateblue;
           box-shadow: 0px 10px 10px -10px #000000, inset 0px 0px 50px 0px mediumslateblue;
+}
+
+body .board-container tr td.threatend {
+  -webkit-box-shadow: 0px 10px 10px -10px #000000, inset 0px 0px 50px 0px crimson;
+          box-shadow: 0px 10px 10px -10px #000000, inset 0px 0px 50px 0px crimson;
 }
 
 body .board-container tr:nth-of-type(2n) td {
@@ -135,6 +145,11 @@ body .board-container tr:nth-of-type(2n) td:nth-of-type(2n).possible-move {
           box-shadow: 0px 10px 10px -10px #000000, inset 0px 0px 50px 0px mediumslateblue;
 }
 
+body .board-container tr:nth-of-type(2n) td:nth-of-type(2n).threatend {
+  -webkit-box-shadow: 0px 10px 10px -10px #000000, inset 0px 0px 50px 0px crimson;
+          box-shadow: 0px 10px 10px -10px #000000, inset 0px 0px 50px 0px crimson;
+}
+
 body .board-container tr:nth-of-type(2n) td img {
   cursor: pointer;
   width: 90%;
@@ -153,5 +168,10 @@ body .board-container tr:nth-of-type(2n) td.selected-tile {
 body .board-container tr:nth-of-type(2n) td.possible-move {
   -webkit-box-shadow: 0px 10px 10px -10px #000000, inset 0px 0px 50px 0px mediumslateblue;
           box-shadow: 0px 10px 10px -10px #000000, inset 0px 0px 50px 0px mediumslateblue;
+}
+
+body .board-container tr:nth-of-type(2n) td.threatend {
+  -webkit-box-shadow: 0px 10px 10px -10px #000000, inset 0px 0px 50px 0px crimson;
+          box-shadow: 0px 10px 10px -10px #000000, inset 0px 0px 50px 0px crimson;
 }
 /*# sourceMappingURL=style.css.map */

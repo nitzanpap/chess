@@ -49,15 +49,21 @@ class Piece {
             }
         }
         if (isWithinBounds(i, j + 1) && board[i][j + 1].color === this.opponentColor) {
-            board[i][j + 1].threatend = true
+            this.threatenThisPiece(board[i][j + 1])
             result.push([i, j + 1])
         }
         if (isWithinBounds(i, j - 1) && board[i][j - 1].color === this.opponentColor) {
-            board[i][j - 1].threatend = true
+            this.threatenThisPiece(board[i][j - 1])
             result.push([i, j - 1])
         }
         return result
     }
+
+    threatenThisPiece(piece) {
+        piece.threatend = true
+        getTileFromPiece(piece).classList.add("threatend")
+    }
+
     // TODO: Refactor this function so it can receive the initial piece's coordinate, and adds to it according to the direction.
     // TODO: Example: Instead of calling getMovesInDirection(arr,i+1,j+1,1,1), should be getMovesInDirection(arr,i,j,1,1).
     getMovesInDirection(result, i, j, rowDirection, colDirection, optionalIterLimit = -1) {
@@ -81,7 +87,7 @@ class Piece {
                 // If encountered an opponent piece
                 else if (board[i][j].color !== this.color) {
                     result.push([i, j])
-                    board[i][j].threatend = true
+                    this.threatenThisPiece(board[i][j])
                 }
                 // If encountered an ally piece
                 else {
