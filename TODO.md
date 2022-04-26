@@ -19,3 +19,11 @@
 9. [ ] Add API documentation to all the functions and clean up the code.
 
 10. [ ] Add a function that checks if the king is under threat(Check) and if the king is doomed(Check-mate).
+
+11. [ ] Add the feature that turns (or replaces) a pawn to a queen when it reaches it's last line.
+
+12. [ ] Incorporate the En Passant move.
+
+13. [ ] Limit player's moves when under Check to only moves that removes the check.
+
+14. [ ] End game when a player has no moves and is in check.
