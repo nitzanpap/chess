@@ -36,43 +36,42 @@ class Piece {
         console.log("absoluteMoves", absoluteMoves)
 
         // Get filtered absolute moves
-        let filteredMoves = []
-        for (let absoluteMove of absoluteMoves) {
-            const relativeRow = absoluteMove[0]
-            const relativeCol = absoluteMove[1]
-            if (relativeRow >= 0 && relativeRow <= 7 && relativeCol >= 0 && relativeCol <= 7) {
-                filteredMoves.push(absoluteMove)
-            }
-        }
-        console.log("filteredMoves", filteredMoves)
-        return filteredMoves
+        // let filteredMoves = []
+        // for (let absoluteMove of absoluteMoves) {
+        //     const relativeRow = absoluteMove[0]
+        //     const relativeCol = absoluteMove[1]
+        //     if (relativeRow >= 0 && relativeRow <= 7 && relativeCol >= 0 && relativeCol <= 7) {
+        //         filteredMoves.push(absoluteMove)
+        //     }
+        // }
+        // console.log("filteredMoves", filteredMoves)
+        // return filteredMoves
+        return absoluteMoves
     }
 
     // TODO: Remove all moves that colide with pieces and their consecutive moves
     // TODO: Add a special indicator for colision with an opponent's piece and display it.
-    getPawnRelativeMoves(board) {
+    getPawnRelativeMoves() {
         let result = []
-        // A factor that determines the vertical direction of the pawn based on it's color
-        let colorFactor = this.color === WHITE_PLAYER ? 1 : -1
-        let numOfMovesAllowed = this.isOnFirstMove ? 2 : 1
-        this.getMovesInDirection(
-            result,
-            this.row + colorFactor,
-            this.col,
-            colorFactor,
-            0,
-            numOfMovesAllowed
-        )
+        let i = this.row + this.pawnDirectionFactor
+        let j = this.col
+        // Check if the next tile is empty
+        if (isWithinBounds(i, j) && board[i][j].color === "e") {
+            result.push([i, j])
+            // If the pawn's on it's first move, check if the tile after the first one is empty
+            if (this.isOnFirstMove && board[i + this.pawnDirectionFactor][j].color === "e") {
+                result.push([i + this.pawnDirectionFactor, j])
+            }
+        }
+        if (isWithinBounds(i, j + 1) && board[i][j + 1].color === this.opponentColor) {
+            board[i][j + 1].threatend = true
+            result.push([i, j + 1])
+        }
+        if (isWithinBounds(i, j - 1) && board[i][j - 1].color === this.opponentColor) {
+            board[i][j - 1].threatend = true
+            result.push([i, j - 1])
+        }
         return result
-        // let result = []
-        // if (this.color === WHITE_PLAYER) {
-        //     result.push([this.row + 1, this.col])
-        // } else result.push([this.row - 1, this.col])
-        // if (this.isOnFirstMove)
-        //     if (this.color === WHITE_PLAYER) {
-        //         result.push([this.row + 2, this.col])
-        //     } else result.push([this.row - 2, this.col])
-        // return result
     }
     // TODO: Refactor this function so it can receive the initial piece's coordinate, and adds to it according to the direction.
     // TODO: Example: Instead of calling getMovesInDirection(arr,i+1,j+1,1,1), should be getMovesInDirection(arr,i,j,1,1).

@@ -103,7 +103,7 @@ function getPieceFromTile(tile) {
 }
 
 function getTileFromPiece(piece) {
-    return board[piece.row][piece.col]
+    return document.querySelector("#td" + (piece.row * 8 + piece.col))
 }
 
 function drawPieceInit(tile, type, tileColor) {
@@ -165,7 +165,8 @@ function showPossibleMoves(piece) {
     removePossibleMoves()
     let possibleMoves = piece.getPossibleMoves(board)
     for (let possibleMove of possibleMoves) {
-        const tile = table.rows[possibleMove[0]].cells[possibleMove[1]]
+        console.log(possibleMove)
+        const tile = getTileFromPiece(board[possibleMove[0]][possibleMove[1]])
         tile.classList.add("possible-move")
         getPieceFromTile(tile).threatend = false
     }
@@ -208,4 +209,8 @@ function switchTurn() {
     currentColorTurn = currentColorTurn === "W" ? "B" : "W"
     tileSelected = undefined
     madeAMove = false
+}
+
+function isWithinBounds(i, j) {
+    return i >= 0 && i <= 7 && j >= 0 && j <= 7
 }
