@@ -39,9 +39,8 @@ body {
         height: calc(min(8vw, 8vh));
         padding: calc(min(1vw, 1vh));
         font-size: 1.8em;
-        background-color: lightgrey;
-        border: 0.2em solid rgb(77, 77, 77);
-        border-radius: 20px;
+        background-color: rgb(233, 233, 233);
+        border-radius: 10px;
     }
     .message-box-capture {
         color: blue;
