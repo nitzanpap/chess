@@ -30,6 +30,10 @@ body {
   margin: 0;
 }
 
+body .message-box {
+  height: 10%;
+}
+
 body .board-container {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -41,7 +45,7 @@ body .board-container {
       -ms-flex-align: center;
           align-items: center;
   width: 100%;
-  height: 100%;
+  height: 90%;
   -ms-flex-wrap: wrap;
       flex-wrap: wrap;
   width: calc(min(80vw, 80vh));

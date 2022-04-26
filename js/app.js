@@ -11,8 +11,9 @@ const BISHOP = "bishop"
 const KING = "king"
 const QUEEN = "queen"
 
+const messageBox = document.querySelector(".message-box")
 let currentColorTurn = WHITE_PLAYER
-let board = [[], [], [], [], [], [], [], []]
+const board = [[], [], [], [], [], [], [], []]
 let tileSelected = undefined
 let madeAMove = false
 let table
@@ -133,6 +134,7 @@ function handleTileClick(tile) {
             }
             // Opposite player's tile clicked
             else {
+                updateMessageBox("capture", previousPiece, piece)
                 // Print what piece captured which piece
                 console.log(
                     previousPiece.color +
@@ -156,6 +158,15 @@ function handleTileClick(tile) {
         }
     }
 }
+
+function updateMessageBox(event, piece1, piece2 = undefined) {
+    messageBox.innerText = ""
+    if (event === "capture") {
+        messageBox.innerText =
+            piece1.color + " " + piece1.type + " Captured " + piece2.color + " " + piece2.type + "!"
+    }
+}
+
 function selectTileClick(tile) {
     // Remove any previous selected tiles and rest tileSelected
     if (tileSelected != undefined) {
