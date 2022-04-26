@@ -133,7 +133,17 @@ function handleTileClick(tile) {
             }
             // Opposite player's tile clicked
             else {
-                console.log("Clicked on an opponent's piece!")
+                // Print what piece captured which piece
+                console.log(
+                    previousPiece.color +
+                        " " +
+                        previousPiece.type +
+                        " Captured " +
+                        piece.color +
+                        " " +
+                        piece.type +
+                        "!"
+                )
                 erasePieceFromTile(tile)
             }
             // Update board array
@@ -165,7 +175,6 @@ function showPossibleMoves(piece) {
     removePossibleMoves()
     let possibleMoves = piece.getPossibleMoves(board)
     for (let possibleMove of possibleMoves) {
-        console.log(possibleMove)
         const tile = getTileFromPiece(board[possibleMove[0]][possibleMove[1]])
         tile.classList.add("possible-move")
         getPieceFromTile(tile).threatend = false
@@ -190,7 +199,17 @@ function movePiece(rowFrom, colFrom, rowTo, colTo) {
     board[rowTo][colTo] = board[rowFrom][colFrom]
     board[rowFrom][colFrom] = new Piece(Number(rowFrom), Number(colFrom), "e", "e")
     board[rowTo][colTo].setRowAndColumn(rowTo, colTo)
-    console.log(board[rowTo][colTo])
+    // Print what piece moved, and where did it move to
+    console.log(
+        board[rowTo][colTo].color +
+            " " +
+            board[rowTo][colTo].type +
+            " moved to (" +
+            rowTo +
+            "," +
+            colTo +
+            ")"
+    )
     madeAMove = true
     if (board[rowTo][colTo].type === PAWN) board[rowTo][colTo].madeFirstMove()
 }

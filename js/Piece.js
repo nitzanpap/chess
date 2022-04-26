@@ -33,19 +33,6 @@ class Piece {
         } else {
             console.log("Unknown type", type)
         }
-        console.log("absoluteMoves", absoluteMoves)
-
-        // Get filtered absolute moves
-        // let filteredMoves = []
-        // for (let absoluteMove of absoluteMoves) {
-        //     const relativeRow = absoluteMove[0]
-        //     const relativeCol = absoluteMove[1]
-        //     if (relativeRow >= 0 && relativeRow <= 7 && relativeCol >= 0 && relativeCol <= 7) {
-        //         filteredMoves.push(absoluteMove)
-        //     }
-        // }
-        // console.log("filteredMoves", filteredMoves)
-        // return filteredMoves
         return absoluteMoves
     }
 
@@ -93,13 +80,11 @@ class Piece {
                 }
                 // If encountered an opponent piece
                 else if (board[i][j].color !== this.color) {
-                    console.log("Opponent's piece threatend at (" + i + ", " + j + ")")
                     result.push([i, j])
                     board[i][j].threatend = true
                 }
                 // If encountered an ally piece
                 else {
-                    console.log("Encountered an ally piece at (" + i + ", " + j + ")")
                 }
             }
         }
