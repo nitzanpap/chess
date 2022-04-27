@@ -55,8 +55,15 @@ function createBoard() {
     console.log(board)
 }
 
+// FIXME: Not recognizes the king and rook classes
 function addNewPieceToBoardArray(i, j, type, color) {
-    board[i][j] = type === PAWN ? new PawnPiece(i, j, type, color) : new Piece(i, j, type, color)
+    if (type === PAWN) {
+        board[i][j] = new PawnPiece(i, j, type, color)
+    } else if (type === KING) {
+        board[i][j] = new KingPiece(i, j, type, color)
+    } else if (type === ROOK) {
+        board[i][j] = new RookPiece(i, j, type, color)
+    } else board[i][j] = new Piece(i, j, type, color)
 }
 
 function createPieces() {
@@ -168,6 +175,10 @@ function updateMessageBox(event, piece1, piece2 = undefined) {
             " moved to " +
             coordinateToChessCoordinate(piece1.row, piece1.col)
     }
+    if (event === "castle") {
+        messageBox.innerText = piece1.color + " player has castled"
+        messageBox.classList.add("message-box-check")
+    }
     if (event === "check") {
         messageBox.innerText = "Check on " + piece1.color + " player king!"
         messageBox.classList.add("message-box-check")
@@ -220,14 +231,25 @@ function isValidMove(tileSelected, tile) {
     if (madeAMove || [...tile.classList].indexOf("possible-move") === -1) return false
     return true
 }
-
+// FIXME: Not working yet!
 function movePiece(rowFrom, colFrom, rowTo, colTo) {
     board[rowTo][colTo] = board[rowFrom][colFrom]
     board[rowFrom][colFrom] = new Piece(Number(rowFrom), Number(colFrom), "e", "e")
     board[rowTo][colTo].setRowAndColumn(rowTo, colTo)
     // Print what piece moved, and where did it move to
     madeAMove = true
+    // Check pawn's special first double move
     if (board[rowTo][colTo].type === PAWN) board[rowTo][colTo].madeFirstMove()
+    // Check king's castling
+    else if (board[rowTo][colTo].type === KING && board[rowTo][colTo].castled) {
+        board[rowTo][colTo].madeFirstMove()
+        if (colTo === 2) {
+            movePiece(rowTo, 0, rowTo, 3)
+            // Update board screen
+            updateMessageBox("castle", board[rowTo][colTo])
+            drawPieceOnTile(getTileFromPiece(board[rowTo][3]))
+        }
+    }
 }
 
 function erasePieceFromTile(tile) {
