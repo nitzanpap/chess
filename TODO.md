@@ -22,7 +22,7 @@
 
 11. [ ] Add the feature that turns (or replaces) a pawn to a queen when it reaches it's last line.
 
-12. [ ] Incorporate the En Passant move.
+12. [ ] Incorporate the En Passant move, and castling.
 
 13. [ ] Limit player's moves when under Check to only moves that removes the check.
 
