@@ -140,17 +140,17 @@ class Piece {
         }
         // Castling:
         // If the king and the rook are on their first move still, then suggest castling
-        if (
-            this.isOnFirstMove === true &&
-            board[this.row][0].type === ROOK &&
-            board[this.row][0].isOnFirstMove === true &&
-            board[this.row][this.col - 1].type === "e" &&
-            board[this.row][this.col - 2].type === "e" &&
-            board[this.row][this.col - 3].type === "e"
-        ) {
-            this.castled = true
-            result.push([this.row, this.col - 2])
-        }
+        // if (
+        //     this.isOnFirstMove === true &&
+        //     board[this.row][0].type === ROOK &&
+        //     board[this.row][0].isOnFirstMove === true &&
+        //     board[this.row][this.col - 1].type === "e" &&
+        //     board[this.row][this.col - 2].type === "e" &&
+        //     board[this.row][this.col - 3].type === "e"
+        // ) {
+        //     this.castled = true
+        //     result.push([this.row, this.col - 2])
+        // }
         return result
     }
 

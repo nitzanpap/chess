@@ -240,16 +240,6 @@ function movePiece(rowFrom, colFrom, rowTo, colTo) {
     madeAMove = true
     // Check pawn's special first double move
     if (board[rowTo][colTo].type === PAWN) board[rowTo][colTo].madeFirstMove()
-    // Check king's castling
-    else if (board[rowTo][colTo].type === KING && board[rowTo][colTo].castled) {
-        board[rowTo][colTo].madeFirstMove()
-        if (colTo === 2) {
-            movePiece(rowTo, 0, rowTo, 3)
-            // Update board screen
-            updateMessageBox("castle", board[rowTo][colTo])
-            drawPieceOnTile(getTileFromPiece(board[rowTo][3]))
-        }
-    }
 }
 
 function erasePieceFromTile(tile) {
