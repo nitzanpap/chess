@@ -56,7 +56,6 @@ function createBoard() {
     console.log(board)
 }
 
-// FIXME: Not recognizes the king and rook classes
 function addNewPieceToBoardArray(i, j, type, color) {
     if (type === PAWN) {
         board[i][j] = new PawnPiece(i, j, type, color)
