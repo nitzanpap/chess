@@ -144,10 +144,11 @@ function handleTileClick(tile) {
             }
             // Opposite player's tile clicked
             else {
-                // Print what piece captured which piece
+                // a king has been captured
                 if (piece.type === KING) {
                     actionMade = "checkmate"
                     endGame = true
+                    // a different piece has been captured
                 } else {
                     actionMade = "capture"
                 }
@@ -158,8 +159,8 @@ function handleTileClick(tile) {
             // Update board screen
             updateMessageBox(actionMade, previousPiece, piece)
             drawPieceOnTile(tile)
-            selectTileClick(tile)
 
+            selectTileClick(tile)
             switchTurn()
         }
     }
@@ -227,6 +228,7 @@ function removePossibleMoves() {
             table.rows[i].cells[j].classList.remove("possible-move")
             table.rows[i].cells[j].classList.remove("threatend")
             board[i][j].threatend = false
+            if (board[i][j].type === KING) board[i][j].inCheck = false
         }
     }
 }

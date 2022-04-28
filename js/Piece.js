@@ -62,6 +62,7 @@ class Piece {
     threatenThisPiece(piece) {
         piece.threatend = true
         getTileFromPiece(piece).classList.add("threatend")
+        if (piece.type === KING) piece.inCheck = true
     }
 
     // TODO: Refactor this function so it can receive the initial piece's coordinate, and adds to it according to the direction.
@@ -89,7 +90,7 @@ class Piece {
                     result.push([i, j])
                     this.threatenThisPiece(board[i][j])
                 }
-                // If encountered an ally piece
+                // If encountered an ally piece, maybe add somthing later
                 else {
                 }
             }
@@ -138,6 +139,7 @@ class Piece {
                     this.getMovesInDirection(result, this.row + i, this.col + j, i, j, 1)
             }
         }
+        // Code works well, but is not integrated.
         // Castling:
         // If the king and the rook are on their first move still, then suggest castling
         // if (
