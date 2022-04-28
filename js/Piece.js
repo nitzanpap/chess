@@ -139,7 +139,7 @@ class Piece {
                     this.getMovesInDirection(result, this.row + i, this.col + j, i, j, 1)
             }
         }
-        // Code works well, but is not integrated.
+        // TODO: Code works well, but needs to be integrated.
         // Castling:
         // If the king and the rook are on their first move still, then suggest castling
         // if (
