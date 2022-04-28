@@ -237,7 +237,6 @@ function isValidMove(tileSelected, tile) {
     if (madeAMove || [...tile.classList].indexOf("possible-move") === -1) return false
     return true
 }
-// FIXME: Not working yet!
 function movePiece(rowFrom, colFrom, rowTo, colTo) {
     board[rowTo][colTo] = board[rowFrom][colFrom]
     board[rowFrom][colFrom] = new Piece(Number(rowFrom), Number(colFrom), "e", "e")
