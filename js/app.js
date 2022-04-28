@@ -17,6 +17,7 @@ const board = [[], [], [], [], [], [], [], []]
 let tileSelected = undefined
 let madeAMove = false
 let table
+let endGame = false
 
 runMainGameLoop()
 
@@ -48,7 +49,7 @@ function createBoard() {
             // Add piece to board array
             addNewPieceToBoardArray(i, j, "e", "e")
             td.addEventListener("click", () => {
-                handleTileClick(td)
+                if (!endGame) handleTileClick(td)
             })
         }
     }
@@ -145,7 +146,12 @@ function handleTileClick(tile) {
             // Opposite player's tile clicked
             else {
                 // Print what piece captured which piece
-                actionMade = "capture"
+                if (piece.type === KING) {
+                    actionMade = "checkmate"
+                    endGame = true
+                } else {
+                    actionMade = "capture"
+                }
                 erasePieceFromTile(tile)
             }
             // Update board array
@@ -238,8 +244,9 @@ function movePiece(rowFrom, colFrom, rowTo, colTo) {
     board[rowTo][colTo].setRowAndColumn(rowTo, colTo)
     // Print what piece moved, and where did it move to
     madeAMove = true
+    let piece = board[rowTo][colTo]
     // Check pawn's special first double move
-    if (board[rowTo][colTo].type === PAWN) board[rowTo][colTo].madeFirstMove()
+    if (piece.type === PAWN) piece.madeFirstMove()
 }
 
 function erasePieceFromTile(tile) {
