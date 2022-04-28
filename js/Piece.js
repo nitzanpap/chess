@@ -17,6 +17,7 @@ class Piece {
     getPossibleMoves(board) {
         // Get relative moves
         let absoluteMoves = []
+        console.log(this)
         // absoluteMoves = this.getKnightRelativeMoves()
         if (this.type === PAWN) {
             absoluteMoves = this.getPawnRelativeMoves()

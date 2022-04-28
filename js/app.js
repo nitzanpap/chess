@@ -138,27 +138,29 @@ function handleTileClick(tile) {
         if (isValidMove(tileSelected, tile)) {
             let actionMade
             messageBox.innerText = ""
+            // Update board array
+            movePiece(rowFrom, colFrom, piece.row, piece.col)
             // Empty tile clicked
             if (piece.color === "e") {
                 actionMade = "move"
             }
             // Opposite player's tile clicked
             else {
-                // a king has been captured
-                if (piece.type === KING) {
-                    actionMade = "checkmate"
-                    endGame = true
-                    // a different piece has been captured
-                } else {
-                    actionMade = "capture"
-                }
+                actionMade = "capture"
                 erasePieceFromTile(tile)
             }
-            // Update board array
-            movePiece(rowFrom, colFrom, piece.row, piece.col)
             // Update board screen
             updateMessageBox(actionMade, previousPiece, piece)
             drawPieceOnTile(tile)
+
+            if (isOpponentUnderCheck(piece)) {
+                actionMade = "check"
+                // a king has been captured
+            } else if (isOpponentUnderCheckmate()) {
+                actionMade = "checkmate"
+                endGame = true
+                // a different piece has been captured
+            }
 
             selectTileClick(tile)
             switchTurn()
@@ -247,6 +249,37 @@ function movePiece(rowFrom, colFrom, rowTo, colTo) {
     let piece = board[rowTo][colTo]
     // Check pawn's special first double move
     if (piece.type === PAWN) piece.madeFirstMove()
+
+    // Check if the king is under check
+    if (isOpponentUnderCheck(piece)) {
+        console.log("King under check!")
+        updateMessageBox("check", piece)
+    }
+}
+
+function isOpponentUnderCheck(piece) {
+    let possibleMoves = piece.getPossibleMoves(board)
+    const opponentKing = getPieceFromType(KING, piece.opponentColor)
+    if (opponentKing.inCheck) {
+        return true
+    }
+    for (let possibleMove of possibleMoves) {
+        const tile = getTileFromPiece(board[possibleMove[0]][possibleMove[1]])
+    }
+}
+
+function isOpponentUnderCheckmate() {
+    return false
+}
+
+function getPieceFromType(type, color) {
+    for (const line of board) {
+        for (let piece of line) {
+            if (piece.type === type && piece.color === color) return piece
+        }
+    }
+    console.log(color + " " + type + " piece not found in board array")
+    return undefined
 }
 
 function erasePieceFromTile(tile) {
