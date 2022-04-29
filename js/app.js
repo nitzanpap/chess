@@ -202,7 +202,6 @@ function selectTileClick(tile) {
     // Remove any previous selected tiles and rest tileSelected
     if (tileSelected != undefined) {
         removeSelectedTile()
-        tileSelected = undefined
     }
     // Select the given tile and update tileSelected accordingly
     tileSelected = tile
@@ -211,6 +210,7 @@ function selectTileClick(tile) {
 
 function removeSelectedTile() {
     tileSelected.classList.remove("selected-tile")
+    tileSelected = undefined
 }
 function showPossibleMoves(piece) {
     // Clear all previous possible moves
