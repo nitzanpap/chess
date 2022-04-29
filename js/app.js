@@ -175,6 +175,27 @@ function handleTileClick(tile) {
     }
 }
 
+// TODO: Refactor this function to include all, or at least most, of the move validations.
+function isValidMove(tileSelected, tile) {
+    if (madeAMove || [...tile.classList].indexOf("possible-move") === -1) return false
+    return true
+}
+
+/**
+ * This fuction moves a given piece to a new coordinate, and draws it in the new coordinate.
+ * @param {Piece} piece the given piece to be moved to it's new location
+ * @param {Number} rowFrom row index in board array
+ * @param {Number} colFrom column index in board array
+ */
+function movePiece(piece, rowTo, colTo) {
+    // Move piece in the board array
+    updatedBoardPieceLocation(piece.row, piece.col, rowTo, colTo)
+    // Draw piece in it's location according to its data
+    drawPieceOnTile(getTileFromPiece(piece))
+    // Check pawn's special first double move
+    if (piece.type === PAWN) piece.madeFirstMove()
+}
+
 function isKingInCheck(kingPiece) {
     runPossibleMovesOfAllPieces()
     return kingPiece.inCheck
@@ -198,21 +219,6 @@ function getPieceFromTypeAndColor(type, color) {
             if (piece.type === type && piece.color === color) return piece
         }
     }
-}
-
-/**
- * This fuction moves a given piece to a new coordinate, and draws it in the new coordinate.
- * @param {Piece} piece the given piece to be moved to it's new location
- * @param {Number} rowFrom row index in board array
- * @param {Number} colFrom column index in board array
- */
-function movePiece(piece, rowTo, colTo) {
-    // Move piece in the board array
-    updatedBoardPieceLocation(piece.row, piece.col, rowTo, colTo)
-    // Draw piece in it's location according to its data
-    drawPieceOnTile(getTileFromPiece(piece))
-    // Check pawn's special first double move
-    if (piece.type === PAWN) piece.madeFirstMove()
 }
 
 /**
@@ -297,12 +303,6 @@ function removePossibleMoves() {
             if (board[i][j].type === KING) board[i][j].inCheck = false
         }
     }
-}
-
-// TODO: Refactor this function to include all, or at least most, of the move validations.
-function isValidMove(tileSelected, tile) {
-    if (madeAMove || [...tile.classList].indexOf("possible-move") === -1) return false
-    return true
 }
 
 function erasePieceFromTile(tile) {
