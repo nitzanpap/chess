@@ -133,11 +133,13 @@ function handleTileClick(tile) {
     // A piece was selected previously
     else if (tileSelected !== undefined) {
         let previousPiece = getPieceFromTile(tileSelected)
-        const rowFrom = tileSelected.classList[0].slice(5)
-        const colFrom = tileSelected.classList[1].slice(5)
+        const rowFrom = previousPiece.row
+        const colFrom = previousPiece.col
         if (isValidMove(tileSelected, tile)) {
             let actionMade
             messageBox.innerText = ""
+            // Move piece to a new location
+            movePiece(previousPiece, piece.row, piece.col)
             // Empty tile clicked
             if (piece.color === "e") {
                 actionMade = "move"
@@ -154,16 +156,80 @@ function handleTileClick(tile) {
                 }
                 erasePieceFromTile(tile)
             }
-            // Update board array
-            movePiece(rowFrom, colFrom, piece.row, piece.col)
+            let opponentKing = getPieceFromTypeAndColor(KING, previousPiece.opponentColor)
+            if (isKingInCheck(opponentKing)) {
+                actionMade = "check"
+                if (isKingInCheckmate(opponentKing)) {
+                    actionMade = "checkmate"
+                    endGame = true
+                }
+            }
             // Update board screen
             updateMessageBox(actionMade, previousPiece, piece)
-            drawPieceOnTile(tile)
-
+            madeAMove = true
             selectTileClick(tile)
+            removeSelectedTile()
+            removePossibleMoves()
             switchTurn()
         }
     }
+}
+
+function isKingInCheck(kingPiece) {
+    runPossibleMovesOfAllPieces()
+    return kingPiece.inCheck
+}
+
+function runPossibleMovesOfAllPieces() {
+    for (let row of board) {
+        for (let piece of row) {
+            let piecePossibleMove = piece.type !== "e" ? piece.getPossibleMoves() : undefined
+        }
+    }
+}
+
+function isKingInCheckmate(kingPiece) {
+    return false
+}
+
+function getPieceFromTypeAndColor(type, color) {
+    for (let row of board) {
+        for (let piece of row) {
+            if (piece.type === type && piece.color === color) return piece
+        }
+    }
+}
+
+/**
+ * This fuction moves a given piece to a new coordinate, and draws it in the new coordinate.
+ * @param {Piece} piece the given piece to be moved to it's new location
+ * @param {Number} rowFrom row index in board array
+ * @param {Number} colFrom column index in board array
+ */
+function movePiece(piece, rowTo, colTo) {
+    // Move piece in the board array
+    updatedBoardPieceLocation(piece.row, piece.col, rowTo, colTo)
+    // Draw piece in it's location according to its data
+    drawPieceOnTile(getTileFromPiece(piece))
+    // Check pawn's special first double move
+    if (piece.type === PAWN) piece.madeFirstMove()
+}
+
+/**
+ *
+ * @param {Number} rowTo row index in board array
+ * @param {Number} colTo column index in board array
+ * @param {Number} rowFrom row index in board array
+ * @param {Number} colFrom column index in board array
+ */
+function updatedBoardPieceLocation(rowFrom, colFrom, rowTo, colTo) {
+    board[rowTo][colTo] = board[rowFrom][colFrom]
+    board[rowFrom][colFrom] = new Piece(Number(rowFrom), Number(colFrom), "e", "e")
+    board[rowTo][colTo].setRowAndColumn(rowTo, colTo)
+}
+
+function drawPieceOnTile(tile) {
+    tile.appendChild(tileSelected.children[0])
 }
 
 function updateMessageBox(event, piece1, piece2 = undefined) {
@@ -238,28 +304,12 @@ function isValidMove(tileSelected, tile) {
     if (madeAMove || [...tile.classList].indexOf("possible-move") === -1) return false
     return true
 }
-function movePiece(rowFrom, colFrom, rowTo, colTo) {
-    board[rowTo][colTo] = board[rowFrom][colFrom]
-    board[rowFrom][colFrom] = new Piece(Number(rowFrom), Number(colFrom), "e", "e")
-    board[rowTo][colTo].setRowAndColumn(rowTo, colTo)
-    // Print what piece moved, and where did it move to
-    madeAMove = true
-    let piece = board[rowTo][colTo]
-    // Check pawn's special first double move
-    if (piece.type === PAWN) piece.madeFirstMove()
-}
 
 function erasePieceFromTile(tile) {
     tile.removeChild(tile.children[0])
 }
 
-function drawPieceOnTile(tile) {
-    tile.appendChild(tileSelected.children[0])
-}
-
 function switchTurn() {
-    removeSelectedTile()
-    removePossibleMoves()
     currentColorTurn = currentColorTurn === "White" ? "Black" : "White"
     tileSelected = undefined
     madeAMove = false
