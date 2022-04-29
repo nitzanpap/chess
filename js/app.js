@@ -258,7 +258,7 @@ function updateMessageBox(event, piece1, piece2 = undefined) {
         messageBox.classList.add("message-box-check")
     }
     if (event === "check") {
-        messageBox.innerText = "Check on " + piece1.color + " player king!"
+        messageBox.innerText = "Check on " + piece1.color + " player's king!"
         messageBox.classList.add("message-box-check")
     }
     if (event === "checkmate") {
