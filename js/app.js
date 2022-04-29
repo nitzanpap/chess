@@ -267,7 +267,7 @@ function updateMessageBox(event, piece1, piece2 = undefined) {
     }
 }
 function coordinateToChessCoordinate(row, col) {
-    return String.fromCharCode(ASCII_NUM_OF_A + row) + col
+    return String.fromCharCode(ASCII_NUM_OF_A + row) + (col + 1)
 }
 
 function selectTileClick(tile) {
